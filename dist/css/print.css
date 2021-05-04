@@ -1,0 +1,87 @@
+
+                      #printdive > div{
+                          transform: scale(1);
+                      }
+.after_the_other thead tr th:last-child,.long_term thead tr th:last-child,.when_needed thead tr th:last-child,.short_term thead tr th:last-child,.after_the_other tbody tr td:last-child,.long_term tbody tr td:last-child,.when_needed tbody tr td:last-child,.short_term tbody tr td:last-child{
+    display: none;
+}
+.prestable {
+    width: 100%
+}
+.term-row{
+    margin-bottom: 5px
+}
+
+.invoice-col td{
+    font-size: 13px;
+    border: 1px solid #f2f2f2;
+    padding: 0px 2px;
+}
+
+.pres-table td{
+    font-size: 13px;
+    border: 1px solid #f2f2f2;
+    padding: 5px 5px;
+    line-height: 9px;
+    font-weight: 400;
+}
+.nv td{
+    font-size: 13px;
+    padding: 5px 4px;
+}
+.h6, h6 {
+    font-size: 14px;
+    margin-bottom: 4px;
+    margin-top: 0px;
+    padding-top: 0;
+}
+.pres-table th{
+    font-size: 13px;
+    border: 1px solid #f2f2f2;
+    padding: 5px 5px;
+    line-height: 9px;
+    font-weight: 600;
+}
+.invoice-col table{
+    width: 100%
+}
+.investigations{
+    margin-bottom: 20px
+}
+.investigations > h6{
+    font-size: 13px;
+    margin-top: 20px;
+    font-weight: 600;
+}
+.investigations > div{
+    font-size: 13px;
+    border: 1px solid #f2f2f2;
+    margin-bottom: -1px;
+    padding: 1px 5px;
+}
+.investigations > div >span{
+    display: inline-block;
+    min-width: 125px;
+    border-right: 1px solid #f2f2f2;margin-right: 5px;
+}
+.doc{
+    border: 1px solid #f2f2f2;
+    padding: 2px 0px;
+    margin: 0px;
+    background-color: #f9f9f9;
+}
+.doc p{
+    margin-bottom: 0px;
+    font-size: 13px;
+}
+.select2-container--default .select2-selection--single {
+    border: 1px solid #ced4da;
+    padding: 2px 6px;
+    height: auto;
+}
+.hed-bot{
+    font-size: 14px;
+    padding-bottom: 0px;
+    padding-top: 10px;
+    margin-bottom: 4px;
+}

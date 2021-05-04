@@ -1,0 +1,272 @@
+.header-top{
+
+}
+.header-top a{
+	display: block;
+	width: 10%;
+	float: left;
+	background-color: #007bff;
+	text-align: center;
+	font-size: 12px;
+    color: #fff;
+    min-height: 55px;
+    padding: 10px 0px;
+	line-height: 16px;
+	font-weight: 600;
+
+align-items: center;
+border: 1px solid #2b7cd2;
+transition: all 0.5s;
+}
+.header-top a:hover{
+		background-color: #0468d2;
+		text-decoration: none;
+}
+.clear{
+clear: both;
+}
+.chanlcenter-row{
+
+}
+.chanlcenter-row > div{
+
+}
+.ners{
+width: 43.5%;
+float: left;
+}
+.dork{
+width: 43.5%;
+float: left;
+}
+.sd-delet{
+	width: 13%;
+	float: left;
+}
+.ns20{
+	width: 20%;
+	float: left;
+}
+.nss20{
+    width: 24.5%;
+    float: left;
+}
+.ns13{
+	width: 17%;
+	float: left;
+}
+.doclab{
+    display: block;
+    background-color: #e6e6e6;
+    margin-bottom: 0px;
+    text-align: center;
+    border: 1px solid #d0cece;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.ns20 a{
+        height: 73px;
+}
+.chanlcenter a{
+display: block;
+background-color: #ffcb00;
+text-align: center;
+font-size: 12px;
+color: #000;
+min-height: 55px;
+padding: 10px 5px;
+line-height: 16px;
+font-weight: 600;
+
+border: 1px solid #ecbc00;
+transition: all 0.5s;
+flex-flow: column;
+}
+.sd-delet{
+	background-color: #ff4b4b;
+text-align: center;
+font-size: 12px;
+color: #000;
+min-height: 55px;
+padding:25px 5px;
+line-height: 16px;
+font-weight: 600;
+cursor: pointer;
+display: block;
+border: 1px solid #ff4b4b;
+transition: all 0.5s;
+    height: 73px;
+}
+.chanlcenter a:hover{
+	text-decoration: none;
+	background-color: #eebe02;
+}
+  .malgrd > div{
+  display: inline-block;
+  margin-right: 45px
+}
+
+.ns-tble table{
+width: 100%
+}
+.ns-tble th{
+    font-size: 14px;
+    font-weight: 500;
+    padding: 5px;
+    background: #eaeaea;
+     border: 1px solid #cacaca;
+}
+.ns-tble td{
+font-size: 15px;
+    border: 1px solid #cacaca;
+    font-size: 13px;
+    padding: 5px;
+}
+.ns-tble tr td:nth-child(2){
+	padding: 0px;
+	
+}
+.form-control {
+    padding: 5px 5px;
+    font-size: 13px;}
+    .nes-stat{
+    	margin-top: 30px
+    }
+    .nes-stat .mar{
+    	margin-top: 20px
+    }
+.disabled {
+    pointer-events: none;
+    cursor: default;
+    background-color: #a7a7a7 !important;
+    border: 1px solid #8f8e8e !important;
+}
+
+.actdeis{
+    background-color: #0fcc4e  !important;
+    border: 1px solid #0fac43  !important;
+}
+.actdeis.curnt{
+    background-color: #13af00 !important;
+    border: 1px solid #139803 !important;
+}
+.topsmall{
+position: fixed;
+bottom: 20px;
+right: 20px;	
+display: none;
+    padding: 3px 10px 5px;
+    font-size: 12px;
+    min-width: 150px;
+}
+.btn-with{
+	    width: 235px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+}
+.curnt{
+
+}
+.svg-btn svg{
+        height: 13px;
+    fill: #fff;
+    padding-bottom: 1px;
+}
+.set-minwith .select2-container{
+min-width: 200px;
+}
+.nav-treeview {
+    text-align: center;
+}
+.nav-treeview li{
+    display: inline-block;
+    width: 19%;
+vertical-align: top;
+}
+.nav-treeview li a{
+    display: block;
+    background-color: #c5c5c5;
+    margin-bottom: 5px;
+    color: #000;
+    font-size: 14px;
+    font-weight: 500;
+}
+.chekin{
+    background-color: #cb5454;
+    border-color: #b43636;
+}
+.nextse{
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+.doc{
+    background-color: #28a745;
+    border-color: #28a745;
+}
+.complt{
+    background-color: #989898;
+    border-color: #9c9e9c;
+}
+.status-msg span{
+   font-size: 13px;
+    color: #fff;
+    border-radius: 5px;
+    padding: 1px 3px 3px;
+    display: none;
+    text-align: center;
+}
+.checkin .status-msg span.chekin{
+display: block;
+}
+.complete .status-msg span.complt{
+display: block;
+}
+.doc .status-msg span.doc{
+display: block;
+}
+.nts .status-msg span.nextse{
+display: block;
+}
+.bok-wid{
+        width: 80%;
+    float: left;
+}
+.dataTables_wrapper {
+    padding: 10px;
+}
+.allergies p{
+    display: inline-block;    font-size: 12px;
+}
+.test-table,.test-table table{
+    width: 100%;
+}
+.test-table td{
+    text-align: left;
+    border:1px solid #d4d4d4;
+    vertical-align: top;
+}
+.test-table th{
+    text-align: left;
+    border:1px solid #d4d4d4;
+    vertical-align: top;
+}
+.test-table{
+    margin-top: 50px
+}
+.fmsina{
+    width: 85%;
+    display: inline-block;
+    height: 33px;
+    vertical-align: middle;
+}
+.remvespan > .col-sm-2{
+    visibility: hidden;
+}
+.selected .indications {
+    display: none;
+}
+.nav-link.active{
+        background-color: #28bb1e;
+}
