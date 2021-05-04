@@ -10,6 +10,20 @@ $table = $_GET['tb'];
     <div class="row">
      <div class="col-12">
           <div>
+            <?php if($table == 'variables_doctor' || $table == 'variables_doctor_indication'){ ?>
+              <ul class="nav nav-treeview" style="display: block;">
+                <li class="nav-item">
+                  <a class="nav-link <?php if($table == 'variables_doctor'){ echo 'active'; } ?>" href="<?php echo $url; ?>views/drug-variables/variables.php?tb=variables_doctor">
+                    Professional
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a  class="nav-link <?php if($table == 'variables_doctor_indication'){ echo 'active'; } ?>" href="<?php echo $url; ?>views/drug-variables/variables.php?tb=variables_doctor_indication">
+                    Referral
+                  </a>
+                </li>
+              </ul>
+            <?php }else{ ?>
             <ul class="nav nav-treeview" style="display: block;">
               <li class="nav-item">
                 <a class="nav-link <?php if($table == 'variables_generic_name'){ echo 'active'; } ?>" href="<?php echo $url; ?>views/drug-variables/variables.php?tb=variables_generic_name">
@@ -82,6 +96,7 @@ $table = $_GET['tb'];
                     </a>
                 </li> -->
             </ul>
+           <?php }; ?>
           </div>
      </div>
      <br>&nbsp;

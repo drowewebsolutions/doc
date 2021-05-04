@@ -32,7 +32,7 @@
     <a href="<?php echo $url; ?>views/bulk/bulk-medicen.php">Drug Bundle Bank</a>
     <a href="<?php echo $url; ?>views/drug-variables/variables.php?tb=variables_diagnoses">Diagnoses Bank</a>
     <a href="<?php echo $url; ?>views/drug-variables/test-variables.php">Investigation bank</a>
-    <a href="">Referrals bank</a>
+    <a href="<?php echo $url; ?>views/drug-variables/variables.php?tb=variables_doctor">Referrals bank</a>
     <a href="<?php echo $url; ?>views/all-patients.php">Patient Bank</a>
   </div>
   <div class="clear"></div> 

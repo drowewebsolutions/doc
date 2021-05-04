@@ -34,6 +34,7 @@
                                         <td width="150px"><?php echo $row['name']; ?></td>
                                         <td width="250px">
                                             <button type="button" class="idbtn alt-btn add-color" data-toggle="modal" data-target="#short_term" data-id="<?php echo $row['id']; ?>">Add Medicine</button> 
+                                            <button type="button" class="idbtn alt-btn add-color" data-toggle="modal" data-target="#modal-bulk" data-id="<?php echo $row['id']; ?>">Add Bulk Medicine</button> 
                                             <a class="alt-btn delet-color" href="<?php echo $url; ?>control-files/bulk/bulk-delete.php?id=<?php echo $row['id']; ?>" class="badge bg-danger svg-btn">Delete</a>
                                         </td>
                                     </tr>
@@ -101,8 +102,11 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-<?php  include'medicen.php'; ?>
-<?php include'../../inc/footer.php'; ?>
+<?php  
+include'medicen-model.php';
+include'add-bulk-medicen-model.php';
+include'../../inc/footer.php'; 
+?>
 <script>
     (function ($) {
         $(".idbtn").click(function () {
