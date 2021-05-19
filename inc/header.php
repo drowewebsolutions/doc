@@ -28,7 +28,7 @@
     <a href="<?php echo $url; ?>views/consult-new-patient-add-parients.php">Consult New Patient</a>
     <a href="<?php echo $url; ?>views/all-patients.php?cpp=cpp">Consult Previous Patient</a>
     <a href="<?php echo $url; ?>views/drag-component-bank.php">Drag Component Bank</a>
-    <a href="">Individual Drug Bank</a>
+    <a href="<?php echo $url; ?>views/bulk/individual-drug-medicen.php">Individual Drug Bank</a>
     <a href="<?php echo $url; ?>views/bulk/bulk-medicen.php">Drug Bundle Bank</a>
     <a href="<?php echo $url; ?>views/drug-variables/variables.php?tb=variables_diagnoses">Diagnoses Bank</a>
     <a href="<?php echo $url; ?>views/drug-variables/test-variables.php">Investigation bank</a>

@@ -2,6 +2,22 @@
 <div class="row">
   <div class="col-12 table-responsive">
     <table class="prestable pres-table after_the_other">
+      <thead>
+        <tr style="display: none">
+            <th  style="display: none"> </th>
+            <th></th>
+            <th>Trade name</th>
+            <th>Generic </th>
+            <th>Form</th>
+            <th>Strength </th>
+            <th>Frequency</th>
+            <th>Duration</th>
+            <th>Route</th>
+            <th>Indication</th>
+            <th>Advice</th>
+            <th>Action</th>
+        </tr>
+      </thead>
       <tbody class="sortable">
         <?php 
           $result = $db->prepare("SELECT * FROM temp_prescription_drugs where category='after_the_other' and user_id=$user_id ORDER BY order_no asc");

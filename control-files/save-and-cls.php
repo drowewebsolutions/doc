@@ -64,18 +64,34 @@ for($i=0; $trow = $today_patients->fetch(); $i++){
         $result = $db->prepare("DELETE FROM temp_prescription_drugs WHERE id= $id");
         $result->execute();
     }
+    
+    $temp_investigations_group = $db->prepare("SELECT * FROM temp_investigations_group WHERE user_id=$user_id");
+    $temp_investigations_group->execute();
+    for($t=0; $trow = $temp_investigations_group->fetch(); $t++){
+        $tid = $trow['id'];
+        $tday_id = $trow['day_id'];
+        $ttest_catagory = $trow['test_catagory'];
+        $ttest_id = $trow['test_id'];
 
-    $temp_test = $db->prepare("SELECT * FROM temp_test WHERE user_id=$user_id");
-    $temp_test->execute();
-    for($f=0; $row = $temp_test->fetch(); $f++){
-        $id = $row['id'];
-        $test = $row['test'];
-        $investigations = $row['investigations'];
-        $investigations_id = $row['investigations_id'];
-        $sql_pressname = "INSERT INTO save_test( prescription_number, test, investigations, investigations_id ) VALUES ( '".$patients_prescription_number."','".$test."','".$investigations."','".$investigations_id."')";
-        $db->exec($sql_pressname);
+        $group_sql = "INSERT INTO save_investigations_group(day_id,test_catagory,test_id) VALUES ('".$tday_id."','".$ttest_catagory."','".$ttest_id."')";
+        $db->exec($group_sql);
 
-        $result = $db->prepare("DELETE FROM temp_test WHERE id= $id");
+
+        $temp_test = $db->prepare("SELECT * FROM temp_test WHERE group_id=$tid");
+        $temp_test->execute();
+        for($f=0; $row = $temp_test->fetch(); $f++){
+            $id = $row['id'];
+            $indications = $row['indications'];
+            $indications_id = $row['indications_id'];
+            $test = $row['test'];
+            $test_id = $row['test_id'];
+            $sql_pressname = "INSERT INTO save_test( group_id, indications, indications_id, test, test_id ) VALUES ( '".$tid."','".$indications."','".$indications_id."','".$test."','".$test_id."')";
+            $db->exec($sql_pressname);
+
+            $result = $db->prepare("DELETE FROM temp_test WHERE id= $id");
+            $result->execute();
+        }
+        $result = $db->prepare("DELETE FROM temp_investigations_group WHERE id= $tid");
         $result->execute();
     }
 

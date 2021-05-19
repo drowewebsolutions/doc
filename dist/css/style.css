@@ -237,7 +237,9 @@ display: block;
     padding: 10px;
 }
 .allergies p{
-    display: inline-block;    font-size: 12px;
+    display: inline-block;    
+    font-size: 12px;
+    margin-bottom: 0px;
 }
 .test-table,.test-table table{
     width: 100%;

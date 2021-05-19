@@ -375,155 +375,204 @@
                   <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#modal-bulk2">Add Bundle</button>
               </div>
           </div>
-          <?php
-          $short_slq = "SELECT * FROM temp_prescription_drugs where category='short_term' and user_id=$user_id";
-          $short_result = $db->query($short_slq)->fetch();
-          if (@count($short_result["id"]) >= 1) {
-              ?>
-              <h4 id="short_term" class="hed-bot">Short term</h4>
-              <?php
-              include 'parts/short-term.php';
-          };
-          $long_slq = "SELECT * FROM temp_prescription_drugs where category='long_term' AND user_id=$user_id";
-          $long_result = $db->query($long_slq)->fetch();
-          if (@count($long_result["id"]) >= 1) {
-              ?>
-              <h4 class="hed-bot">Long term</h4>
-              <?php include 'parts/long-term.php';
-          };
-          $when_slq = "SELECT * FROM temp_prescription_drugs where category='when_needed' AND user_id=$user_id";
-          $when_result = $db->query($when_slq)->fetch();
-          if (@count($when_result["id"]) >= 1) {
-              ?>
-              <h4 class="hed-bot">Drugs to be used only when needed</h4>
-              <?php include 'parts/when-needed.php';
-          };
-          $after_slq = "SELECT * FROM temp_prescription_drugs where category='after_the_other' AND user_id=$user_id";
-          $after_result = $db->query($after_slq)->fetch();
-          if (@count($after_result["id"]) >= 1) {
-              ?>
-              <h4 class="hed-bot">Drugs to be taken in step order</h4>
-              <?php include 'parts/after-the-other.php';
-          }; ?>
-          <?php
-          $sum = 0;
-          for ($f = 1; $f <= 7; $f++) {
-          $step = $f.'step';
-              $after_slq = "SELECT * FROM temp_prescription_drugs where category="."'".$step."' AND user_id="."'".$user_id."'";
-              $after_result = $db->query($after_slq)->fetch();
-              if (@count($after_result["id"]) >= 1) {
-                  ?>
-                  <h4 class="hed-bot sml">Step <?php echo $f; ?> </h4>
-                  <?php include 'parts/steps_table.php';
-              };
-          }?>
-
+          <div class="prescription-heding">
+            
+            <?php
+            $short_slq = "SELECT * FROM temp_prescription_drugs where category='short_term' and user_id=$user_id";
+            $short_result = $db->query($short_slq)->fetch();
+            if (@count($short_result["id"]) >= 1) {
+                ?>
+                <h4 id="short_term" class="hed-bot">Short term</h4>
+                <?php
+                include 'parts/short-term.php';
+            };
+            $long_slq = "SELECT * FROM temp_prescription_drugs where category='long_term' AND user_id=$user_id";
+            $long_result = $db->query($long_slq)->fetch();
+            if (@count($long_result["id"]) >= 1) {
+                ?>
+                <h4 class="hed-bot">Long term</h4>
+                <?php include 'parts/long-term.php';
+            };
+            $when_slq = "SELECT * FROM temp_prescription_drugs where category='when_needed' AND user_id=$user_id";
+            $when_result = $db->query($when_slq)->fetch();
+            if (@count($when_result["id"]) >= 1) {
+                ?>
+                <h4 class="hed-bot">Drugs to be used only when needed</h4>
+                <?php include 'parts/when-needed.php';
+            };
+            $after_slq = "SELECT * FROM temp_prescription_drugs where category='after_the_other' AND user_id=$user_id";
+            $after_result = $db->query($after_slq)->fetch();
+            if (@count($after_result["id"]) >= 1) {
+                ?>
+                <h4 class="hed-bot">Drugs to be taken in step order</h4>
+                <?php include 'parts/after-the-other.php';
+            }; ?>
+            <?php
+            $sum = 0;
+            for ($f = 1; $f <= 7; $f++) {
+            $step = $f.'step';
+                $after_slq = "SELECT * FROM temp_prescription_drugs where category="."'".$step."' AND user_id="."'".$user_id."'";
+                $after_result = $db->query($after_slq)->fetch();
+                if (@count($after_result["id"]) >= 1) {
+                    ?>
+                    <h4 class="hed-bot sml">Step <?php echo $f; ?> </h4>
+                    <?php include 'parts/steps_table.php';
+                };
+            }?>
+          </div>
           <!-- /.row -->
           <br><br>
           <div class="row">
-              <!-- accepted payments column -->
-              <div class="col-sm-8 invoice-col">
-                  <button type="button" class="btn btn-block btn-primary col-4" data-toggle="modal" data-target="#investigations">Add Investigations</button>
-                  <div class="investigations">
-                      <?php
-                      $result = $db->prepare("SELECT * FROM temp_test where user_id=$user_id ORDER BY id asc");
-                      $result->execute();
-                      $r = 1;
-                      for ($i = 0; $row = $result->fetch(); $i++) {
-
-                          echo '<h6>INVESTIGATIONS TO BE DONE [ ' . $row['investigations'] . ' ]</h6>';
-                          $test = unserialize($row['test']);
-
-
-                          for ($e = 0; $e < @count($test); $e++) {
-                              if (@count($test[$e]) == '2') {
-                                  echo '<div>';
-                                  for ($f = 0; $f < count($test[$e]); $f++) {
-
-                                      if ($f == 0) {
-                                          echo '<span>' . explode(",", $test[$e][$f])[0] . ' : </span>';
-                                      } else {
-                                          echo explode(",", $test[$e][$f])[0] . ', ';
-                                      }
-
-                                  };
-                                  echo '</div>';
-                              }
-                          }; ?>
-                          <span date-id="<?php echo $row['id']; ?>" data-table="temp_test" class="badge bg-danger del-row">Remove</span>
-                      <?php }; ?>
-
-                  </div>
-                  <br>
-                  <button type="button" class="btn btn-block btn-primary col-4" data-toggle="modal" data-target="#assign_a_doctor">Assign a doctor</button>
-                  <br>
-                  <h6 id="assignadoctor">REFERRALS</h6>
-                  <table class="pres-table nv" width="100%">
-                      <tr>
-                          <th>Doctor</th>
-                          <th>Indication</th>
-                      </tr>
-                      <?php
-                      $result_assign_a_doctor = $db->prepare("SELECT * FROM temp_assign_a_doctor where user_id=$user_id ORDER BY id asc");
-                      $result_assign_a_doctor->execute();
-                      for ($f = 0; $rownas = $result_assign_a_doctor->fetch(); $f++) {
-                          ?>
-                          <tr>
-                              <td><?php echo $rownas['name']; ?></td>
-                              <td><?php echo $rownas['note']; ?></td>
-                              <td width="15%"><span date-id="<?php echo $rownas['id']; ?>" data-table="temp_assign_a_doctor" class="badge bg-danger del-row">Remove</span></td>
-                          </tr>
-                      <?php }; ?>
-                  </table>
-              </div>
-              <!-- /.col -->
-              <div class="col-4">
-                  <button type="button" class="btn btn-block btn-primary col-9" data-toggle="modal" data-target="#special">Add Next Visits</button>
-                  <div class="investigations ">
-                      <h6>NEXT VISIT</h6>
-                      <table class="pres-table nv" width="100%">
-                          <?php
-                          $result_next_visits = $db->prepare("SELECT * FROM temp_next_visits where user_id=$user_id ORDER BY id asc");
-                          $result_next_visits->execute();
-                          for ($m = 0; $rownv = $result_next_visits->fetch(); $m++) {
-                          ?>
-                          <tr>
-                              <td><?php echo $rownv['days']; ?></td>
-                              <td><?php echo $rownv['pay']; ?></td>
-                              <td><span date-id="<?php echo $rownv['id']; ?>" data-table="temp_next_visits" class="badge bg-danger del-row">Remove</span></td>
-                          </tr>
-                          <?php }; ?>
-                      </table>
-                  </div>
-              </div>
-          </div>
-          <br>
-          <div class="row ">
-              <div class="col-md-12">
-                  <div class=" doc-dit">
-                      <div class="col-4">
-                  <div>
-                      <p>Dr. Damintha Dissanayake</p>
-                      <p>MD [Colombo], FRCP [UK]</p>
-                  </div>
-              </div>
-              <div class="col-4">
-                  <div>
-                      <p>Specialist Consultant Physician</p>
-                      <p>SLMC 21848</p>
-                  </div>
-              </div>
-              <div class="col-4">
-                  <div>
-                      <p>Phone : 0773908394 [Consultant]</p>
-                      <p>Phone : 0772915415 [Nurse]</p>
-                      <p>daminthadissanayake@yahoo.com</p>
-                  </div>
-              </div>
-                  </div>
-              </div>
-              
-          </div>
+                    <!-- accepted payments column -->
+                    <div class="col-sm-12 ">
+                        <button type="button" class="btn btn-block btn-primary col-4" data-toggle="modal" data-target="#investigations">Add Investigations</button>
+                        <div class="investigations">
+                            <?php
+                            $result = $db->prepare("SELECT * FROM temp_investigations_days where user_id=$user_id ORDER BY id asc");
+                            $result->execute();
+                            $r = 1;
+                            for ($i = 0; $row = $result->fetch(); $i++) { 
+                                $day_id = $row['id'];
+                                ?>
+                                <div class="inves-tabe">
+                                    <table>
+                                        <tr>
+                                            <td><h6>INVESTIGATIONS TO BE DONE <?php echo $row['days']; ?></h6></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="100%">
+                                                <?php
+                                                $cat_result = $db->prepare("SELECT * FROM temp_investigations_group where day_id=$day_id ORDER BY id asc");
+                                                $cat_result->execute(); 
+                                                for ($s = 0; $cat_row = $cat_result->fetch(); $s++) { 
+                                                $group_id = $cat_row['id'];
+                                                ?>
+                                                <table>
+                                                    <?php if($s==0){ ?>
+                                                    <tr>
+                                                        <th width="20%">Investigations category</th>
+                                                        <th width="30%">
+                                                            <table>
+                                                                <tr>
+                                                                    <th>Test</th>
+                                                                    <th>Indications</th>
+                                                                </tr>
+                                                            </table>
+                                                        </th>
+                                                        <th width="40%">Instruction to patient</th>
+                                                    </tr>
+                                                    <?php }; ?>
+                                                    <tr>
+                                                        <td width="20%"><?php echo $cat_row['test_catagory']; ?></td>
+                                                        <td width="40%">
+                                                            <table>
+                                                                <?php $result_ins = $db->prepare("SELECT * FROM temp_test where group_id=$group_id ORDER BY id asc");
+                                                                    $result_ins->execute();
+                                                                    for ($s = 0; $ros = $result_ins->fetch(); $s++) { ?>
+                                                                    <tr>
+                                                                        <td><?php echo $ros['test']; ?></td>
+                                                                        <td><?php echo $ros['indications']; ?></td>
+                                                                    </tr>
+                                                                <?php }; ?>
+                                                            </table>
+                                                        </td>
+                                                        <td width="40%">
+                                                            <?php 
+                                                            $special_instruction = $cat_row['test_id']; 
+                                                            $isntrc_slq = "SELECT * FROM variables_test where id="."'".$special_instruction."'";
+                                                            $insc_result = $db->query($isntrc_slq)->fetch();
+                                                            echo $insc_result["special_instruction"];
+                                                            ?>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <?php }; ?>
+                                            </td>
+                                        </tr>
+                                   </table>
+                                   <span date-id="<?php echo $row['id']; ?>" data-table="temp_investigations_days" class="badge bg-danger del-inst">Delete</span>
+                                </div>
+                                
+                            <?php }; ?>
+                            
+                        </div>
+                        <br>
+                    </div>
+                    <div id="htm"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8 invoice-col">
+                        <button type="button" class="btn btn-block btn-primary col-4" data-toggle="modal" data-target="#assign_a_doctor">Assign a doctor</button>
+                        <br>
+                        <h6 id="assignadoctor">REFERRALS</h6>
+                        <table class="pres-table nv" width="100%">
+                            <tr>
+                                <th>Doctor</th>
+                                <th>Indication</th>
+                            </tr>
+                            <?php
+                            $result_assign_a_doctor = $db->prepare("SELECT * FROM temp_assign_a_doctor where user_id=$user_id ORDER BY id asc");
+                            $result_assign_a_doctor->execute(); ?>
+                            <?php for ($f = 0; $rownas = $result_assign_a_doctor->fetch(); $f++) {
+                                ?>
+                                <tr>
+                                    <td><?php echo $rownas['name']; ?></td>
+                                    <td><?php echo $rownas['note']; ?></td>
+                                    <td width="15%"><span date-id="<?php echo $rownas['id']; ?>" data-table="temp_assign_a_doctor" class="badge bg-danger del-row">Remove</span></td>
+                                </tr>
+                            <?php }; ?>
+                        </table>
+                    </div>
+                    <div class="col-4">
+                        <button type="button" class="btn btn-block btn-primary col-9" data-toggle="modal" data-target="#special">Add Next Visits</button>
+                        <div class="investigations ">
+                            <h6>NEXT VISIT</h6>
+                            <table class="pres-table nv" width="100%">
+                                <?php
+                                $result_next_visits = $db->prepare("SELECT * FROM temp_next_visits where user_id=$user_id ORDER BY id asc");
+                                $result_next_visits->execute();
+                                for ($m = 0; $rownv = $result_next_visits->fetch(); $m++) {
+                                ?>
+                                <tr>
+                                    <td><?php echo $rownv['days']; ?></td>
+                                    <td><?php echo $rownv['pay']; ?></td>
+                                    <td><span date-id="<?php echo $rownv['id']; ?>" data-table="temp_next_visits" class="badge bg-danger del-row">Remove</span></td>
+                                </tr>
+                                <?php }; ?>
+                            </table>
+                        </div>
+                    </div>
+                    </div>
+                    <!-- /.col -->
+                    
+                </div>
+                <br>
+                <div class="row ">
+                    <div class="col-md-12">
+                        <div class=" doc-dit">
+                            <div class="col-4">
+                        <div>
+                            <p>Dr. Damintha Dissanayake</p>
+                            <p>MD [Colombo], FRCP [UK]</p>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div>
+                            <p>Specialist Consultant Physician</p>
+                            <p>SLMC 21848</p>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div>
+                            <p>Phone : 0773908394 [Consultant]</p>
+                            <p>Phone : 0772915415 [Nurse]</p>
+                            <p>daminthadissanayake@yahoo.com</p>
+                        </div>
+                    </div>
+                        </div>
+                    </div>
+                    
+                </div>
           <div class="row no-print">
               <div class="col-12">
                   <a href="<?php echo $url; ?>views/prescription-print.php?id=<?php echo $id; ?>" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print English</a>

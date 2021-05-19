@@ -3,7 +3,7 @@
   <div class="col-12 table-responsive">
     <table class="prestable pres-table short_term">
       <thead>
-      <tr>
+      <tr style="display: none">
           <th  style="display: none"> </th>
           <th></th>
           <th>Trade name</th>
@@ -38,7 +38,7 @@
         <td><?php echo explode(",", $row['route'])[0]; ?></td>
         <td><?php echo explode(",", $row['indication'])[0]; ?></td>
         <td><?php echo explode(",", $row['instructions'])[0]; ?></td>
-        <td><span date-id="<?php echo $row['id']; ?>" data-table="histy_prescription_drugs" class="badge bg-danger del-row">Remove</span></td>
+        <td><span date-id="<?php echo $row['id']; ?>" data-table="temp_prescription_drugs" class="badge bg-danger del-row">Remove</span></td>
       </tr>
     <?php $r++; };   ?>
       </tbody>

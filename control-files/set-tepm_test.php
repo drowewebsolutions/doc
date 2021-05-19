@@ -4,6 +4,7 @@ $test = $_POST['test'];
 $indications = $_POST['indications'];
 $test_catagory = $_POST['test_cat'];
 
+
 if(isset($_POST['abndl'])){
 	$abndl = $_POST['abndl'];
 }else{
@@ -48,7 +49,7 @@ for ($f = 0; $f < $test_count; $f++) {
 	}
 
 
-	$group_sql = "INSERT INTO temp_investigations_group(day_id,test_catagory,test_id) VALUES ('".$last_id."','".$main_test."','".$main_test_id."')";
+	$group_sql = "INSERT INTO temp_investigations_group(day_id,test_catagory,test_id,user_id) VALUES ('".$last_id."','".$main_test."','".$main_test_id."','".$id."')";
 	$db->exec($group_sql);
 	$group_id = $db->lastInsertId();
 

@@ -49,7 +49,6 @@ $all_data_array = array("id" => $arid,
 
 $serialize_array = base64_encode(serialize($all_data_array));
 
-//$sql = "INSERT INTO temp_center_patients_details(patients_id,data_arrey,) VALUES (".$user_id.",".$serialize_array.")";
 $sql = "INSERT INTO `temp_center_patients_details`(`patients_id`, `order`, `center`, `nd`, `active`, `data_arrey`) VALUES ("."'".$user_id."'".","."'".$arid."'".","."'".$Center."'".","."'".$nd."'".",'1',"."'".$serialize_array."'".")";
 $db->exec($sql);
 

@@ -267,7 +267,7 @@
                             $result->execute();
                             $r = 1;
                             for ($h = 0; $row = $result->fetch(); $h++) { ?>
-                                <p><?php echo $row['drug_allergies']; ?> <span date-id="<?php echo $row['id']; ?>" data-table="temp_drug_allergies" class="badge bg-danger del-row">Remove</span>,  </p>
+                                <p><?php echo $row['drug_allergies']; ?> <span date-id="<?php echo $row['id']; ?>" data-table="temp_drug_allergies" class="badge bg-danger del-row-algy">Remove</span>,  </p>
                             <?php }; ?>
                         </div>
                         <?php }; ?>
@@ -287,49 +287,68 @@
                         <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#modal-bulk2">Add Bundle</button>
                     </div>
                 </div>
-                <?php
-                $short_slq = "SELECT * FROM temp_prescription_drugs where category='short_term' and user_id=$user_id";
-                $short_result = $db->query($short_slq)->fetch();
-                if (@count($short_result["id"]) >= 1) {
-                    ?>
-                    <h4 id="short_term" class="hed-bot">Short term</h4>
-                    <?php
-                    include 'parts/short-term.php';
-                };
-                $long_slq = "SELECT * FROM temp_prescription_drugs where category='long_term' AND user_id=$user_id";
-                $long_result = $db->query($long_slq)->fetch();
-                if (@count($long_result["id"]) >= 1) {
-                    ?>
-                    <h4 class="hed-bot">Long term</h4>
-                    <?php include 'parts/long-term.php';
-                };
-                $when_slq = "SELECT * FROM temp_prescription_drugs where category='when_needed' AND user_id=$user_id";
-                $when_result = $db->query($when_slq)->fetch();
-                if (@count($when_result["id"]) >= 1) {
-                    ?>
-                    <h4 class="hed-bot">Drugs to be used only when needed</h4>
-                    <?php include 'parts/when-needed.php';
-                };
-                $after_slq = "SELECT * FROM temp_prescription_drugs where category='after_the_other' AND user_id=$user_id";
-                $after_result = $db->query($after_slq)->fetch();
-                if (@count($after_result["id"]) >= 1) {
-                    ?>
-                    <h4 class="hed-bot">Drugs to be taken in step order</h4>
-                    <?php include 'parts/after-the-other.php';
-                }; ?>
-                <?php
-                $sum = 0;
-                for ($f = 1; $f <= 7; $f++) {
-                $step = $f.'step';
-                    $after_slq = "SELECT * FROM temp_prescription_drugs where category="."'".$step."' AND user_id="."'".$user_id."'";
+                <div class="prescription-heding">
+                <table class="prestable pres-table long_term">
+              <thead>
+              <tr >
+                  <th>Item</th>
+                  <th>Trade name</th>
+                  <th>Generic Name</th>
+                  <th>Form</th>
+                  <th>Strength </th>
+                  <th>Route</th>
+                  <th>Frequency</th>
+                  <th>Duration</th>
+                  <th>Indication</th>
+                  <th>Advice</th>
+                  <th>Action</th>
+              </tr>
+              </thead>
+            </table>                    <?php
+                    $short_slq = "SELECT * FROM temp_prescription_drugs where category='short_term' and user_id=$user_id";
+                    $short_result = $db->query($short_slq)->fetch();
+                    if (@count($short_result["id"]) >= 1) {
+                        ?>
+                        <h4 id="short_term" class="hed-bot">Short term</h4>
+                        <?php
+                        include 'parts/short-term.php';
+                    };
+                    $long_slq = "SELECT * FROM temp_prescription_drugs where category='long_term' AND user_id=$user_id";
+                    $long_result = $db->query($long_slq)->fetch();
+                    if (@count($long_result["id"]) >= 1) {
+                        ?>
+                        <h4 class="hed-bot">Long term</h4>
+                        <?php include 'parts/long-term.php';
+                    };
+                    $when_slq = "SELECT * FROM temp_prescription_drugs where category='when_needed' AND user_id=$user_id";
+                    $when_result = $db->query($when_slq)->fetch();
+                    if (@count($when_result["id"]) >= 1) {
+                        ?>
+                        <h4 class="hed-bot">Drugs to be used only when needed</h4>
+                        <?php include 'parts/when-needed.php';
+                    };
+                    $after_slq = "SELECT * FROM temp_prescription_drugs where category='after_the_other' AND user_id=$user_id";
                     $after_result = $db->query($after_slq)->fetch();
                     if (@count($after_result["id"]) >= 1) {
                         ?>
-                        <h4 class="hed-bot sml">Step <?php echo $f; ?> </h4>
-                        <?php include 'parts/steps_table.php';
-                    };
-                }?>
-
+                        <h4 class="hed-bot">Drugs to be taken in step order</h4>
+                        <?php include 'parts/after-the-other.php';
+                    }; ?>
+                    <?php
+                    $sum = 0;
+                    for ($f = 1; $f <= 7; $f++) { ?>
+                    <?php $step = $f.'step';
+                        $after_slq = "SELECT * FROM temp_prescription_drugs where category="."'".$step."' AND user_id="."'".$user_id."'";
+                        $after_result = $db->query($after_slq)->fetch();
+                        if (@count($after_result["id"]) >= 1) {
+                            ?>
+                            
+                            <h4 class="hed-bot ">Drugs to be taken in step order</h4>
+                            <h4 class="hed-bot sml">Step <?php echo $f; ?> </h4>
+                            <?php include 'parts/steps_table.php';
+                        };
+                    }?>
+                </div>
                 <!-- /.row -->
                 <br><br>
                 <div class="row">
@@ -552,6 +571,22 @@ include '../inc/footer.php';
         var id = $(this).attr('date-id');
         var table = $(this).attr('data-table');
         var diag = $(this).parent().parent();
+
+        $.ajax({
+            type: 'POST',
+            url: '<?php echo $url; ?>control-files/remove-prescription-data.php',
+            data: "id=" + id + "&table=" + table,
+            success: function (data) {
+                    diag.fadeOut().remove();
+            }
+        });
+    });
+
+    // Deletes row-algy
+    $(".del-row-algy").click(function () {
+        var id = $(this).attr('date-id');
+        var table = $(this).attr('data-table');
+        var diag = $(this).parent();
 
         $.ajax({
             type: 'POST',

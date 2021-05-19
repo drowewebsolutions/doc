@@ -9,7 +9,7 @@
     if($pat_chck_result['id']){
       $pat_array = @unserialize(base64_decode($pat_chck_result['data_arrey']));
       $las_id = $pat_chck_result['id'];
-      $patients_id = $pat_chck_result['id'];
+      $patients_id = $pat_chck_result['patients_id'];
     }else{
       $sql = "INSERT INTO temp_center_patients_details(`order`,`center`,`nd`,`active`) VALUES ('".$ord_id."','".$Center."','".$nd."','1')";
       $db->exec($sql);
@@ -36,7 +36,9 @@
                 </tr>
                 <tr>
                   <td>Patient ID</td>
-                  <td><input type="text" class="form-control" value="<?php echo $patients_id; ?>" name="patient_id" disabled></td>
+                  <td><input type="text" class="form-control" value="<?php echo $patients_id; ?>" name="patient_id" disabled>
+                      <input type="hidden" class="form-control" value="<?php echo $patients_id; ?>" name="user_id" >
+                  </td>
                 </tr>
                 <tr>
                   <td>Date and Dime</td>

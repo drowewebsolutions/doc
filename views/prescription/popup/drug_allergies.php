@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <label for="exampleInputEmail1">Allergies </label>
-                    <select class="form-control select2" style="width: 100%;" name="drugs">
+                    <select class="form-control select2" multiple="multiple" style="width: 100%;" name="drugs[]">
                         <?php
                         $variables_doctor = $db->prepare("SELECT * FROM variables_generic_name");
                         $variables_doctor->execute();

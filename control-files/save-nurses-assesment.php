@@ -1,11 +1,13 @@
 <?php 
 include'../config/config.php';
-if(isset($_POST['patient_id'])){
-	$arady_patient_id = $_POST['patient_id'];
+if($_POST['user_id']){
+	$arady_patient_id = $_POST['user_id'];
 }else{
 	$arady_patient_id = null;
 }
-
+//  var_dump($arady_patient_id);
+// exit();
+// die();
 $name = $_POST['name'];
 $birthday = $_POST['birthday'];
 $phone = $_POST['phone'];
@@ -55,6 +57,8 @@ if($arady_patient_id){
 	$db->exec($sql);
 	$patients_id = $db->lastInsertId();
 }
+
+
 
 $sql_other_details = "INSERT INTO temp_patients_other_details( patients_id , smoking, alcohol, allergies, pregnancy, lactating, kidney, lrmp, height, body_Weight,systolic_blood_pressure,diastolic_blood_pressure, pulse_rate, respiratory_rate, oxygen_saturation, temperature, random_blood_suga,mid) VALUES ('".$patients_id."', '".$smoking."', '".$alcohol."','".$allergies."', '".$pregnancy."', '".$lactating."', '".$kidney."', '".$lrmp."', '".$height."', '".$body_Weight."', '".$systolic_blood_pressure."', '".$diastolic_blood_pressure."','".$pulse_rate."', '".$respiratory_rate."', '".$oxygen_saturation."', '".$temperature."', '".$random_blood_suga."', '".$mid."')";
 $db->exec($sql_other_details);
