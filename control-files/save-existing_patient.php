@@ -3,14 +3,14 @@
 include'../config/config.php';
 $patients_id = $_POST['patients_id'];
 
-$phone = $_POST['phone'];
+$report_or_consultation = $_POST['report_or_consultation'];
+$time = $_POST['time'];
+$apnumber = $_POST['apnumber'];
 
-$residence = $_POST['residence'];
-$occupation = $_POST['occupation'];
 $smoking = $_POST['smoking'];
 $alcohol = $_POST['alcohol'];
 $allergies = $_POST['allergies'];
-$pregnancy = $_POST['pregnancy'];
+$pregnancy = $_POST['pregnancy']; 
 $lactating = $_POST['lactating'];
 $kidney = $_POST['kidney'];
 $lrmp = $_POST['lrmp']; 
@@ -49,8 +49,8 @@ if(!$id_result["name"]){
 	$db->exec($sql);
 };
 
-$sql = "UPDATE patients_details SET phone=? , residence=? , occupation=? WHERE patients_id=?";
-$db->prepare($sql)->execute([$phone, $residence, $occupation, $patients_id]);
+$sql = "UPDATE today_patients SET apnumber=? , time=? , report_or_consultation=? WHERE patients_id=?";
+$db->prepare($sql)->execute([$apnumber, $time, $report_or_consultation, $patients_id]);
 
 //query
 $sql = "INSERT INTO temp_patients_other_details( patients_id, smoking, alcohol, allergies, pregnancy, lactating, kidney, lrmp, height, body_Weight,systolic_blood_pressure,diastolic_blood_pressure, pulse_rate, respiratory_rate, oxygen_saturation, temperature, random_blood_suga,mid) VALUES ('".$patients_id."','".$smoking."', '".$alcohol."','".$allergies."', '".$pregnancy."', '".$lactating."', '".$kidney."', '".$lrmp."', '".$height."', '".$body_Weight."', '".$systolic_blood_pressure."', '".$diastolic_blood_pressure."','".$pulse_rate."', '".$respiratory_rate."', '".$oxygen_saturation."', '".$temperature."', '".$random_blood_suga."', '".$mid."')";

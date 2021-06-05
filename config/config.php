@@ -23,7 +23,7 @@ if(isset($_GET['center'])) {
 }
 
 function option_dropdown($db,$table){
-  $result = $db->prepare("SELECT * FROM ".$table." ORDER BY id asc");
+  $result = $db->prepare("SELECT * FROM ".$table." ORDER BY name");
   $result->execute();
   for($i=0; $row = $result->fetch(); $i++){
   	$id = $row['id'];

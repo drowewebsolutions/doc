@@ -447,7 +447,6 @@
                     <!-- <a href="<?php echo $url; ?>views/prescription-print-sinhala.php?patients_id=<?php echo $id; ?>" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Send Via Whatsapp</a> -->
                     <a href="<?php echo $url; ?>control-files/clear_hist-prescription.php?id=<?php echo $id; ?>" class="btn bg-danger"> Discard Changes</a>
                     <a href="<?php echo $url; ?>control-files/clear_hist-prescription.php?id=<?php echo $id; ?>" class="btn bg-danger"> Save Changes</a>
-                    <a href="<?php echo $url; ?>control-files/clear_hist-prescription.php?id=<?php echo $id; ?>" class="btn bg-danger"> Save as new</a>
                     <!-- <a target="_blank" href="https://api.whatsapp.com/send?file=C:\Users\Sheran\Downloads\AdminLTE 3 _ Dashboard 2.pdf&phone=+94773908394">Send Message</a> -->
                 </div>
             </div>

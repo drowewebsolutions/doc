@@ -108,11 +108,6 @@
               </div>
 
             </div>
-            <br>
-            <div class="form-check">
-              <input type="checkbox" class="form-check-input" name='set' value="1" id="exampleCheck1">
-              <label class="form-check-label" for="exampleCheck1">Set Prescription list</label>
-            </div>
           </div>
           <div class="modal-footer justify-content-between">                         
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -31,7 +31,13 @@
                                     $id = $row['id'];
                                     ?>
                                     <tr> 
-                                        <td width="150px"><?php echo $row['name']; ?></td>
+                                        <td width="150px">
+                                             <span style="display: inline-block;vertical-align: top;width: 100px;"><?php echo $row['name']; ?></span>
+                                             <form style="display: inline-block;vertical-align: top">
+                                                 <input type="text" name="update_dm_name">
+                                                 <input type="submit" value="update">
+                                             </form>   
+                                        </td>
                                         <td width="250px">
                                             <button type="button" class="idbtn alt-btn add-color" data-toggle="modal" data-target="#short_term" data-id="<?php echo $row['id']; ?>">Add Medicine</button> 
                                             <button type="button" class="idbtn alt-btn add-color" data-toggle="modal" data-target="#modal-bulk" data-id="<?php echo $row['id']; ?>">Add Bulk Medicine</button> 

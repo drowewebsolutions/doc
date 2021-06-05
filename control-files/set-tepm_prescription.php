@@ -16,7 +16,6 @@ $variables_duration = $_POST['variables_duration'];
 $variables_indication = $_POST['variables_indication'];
 $variables_instructions = $_POST['variables_instructions'];
 $retunurl = $_POST['retunurl'];
-$set = $_POST['set'];
 $user_id = $_POST['user_id'];
 
 
@@ -54,9 +53,13 @@ $sql = "UPDATE temp_prescription_drugs SET order_no=".$lastid." WHERE id=".$last
 $stmt = $db->prepare($sql);
 $stmt->execute();
 
-if($set=='1'){
+$prs_chk = "SELECT * FROM prescription_bluk_drugs WHERE form='".$variables_form."' and generic_name='".$generic_name."' and trade_name='".$trade_name."' and strength='".$variables_strength."' and unit='".$variables_unit."' and route='".$variables_route."' and frequency='".$variables_frequency."' and duration='".$variables_duration."' and indication='".$variables_indication."' and instructions='".$variables_instructions."'";
+$id_result_ck = $db->query($prs_chk)->fetch();
+
+if(!$id_result_ck["id"]){
 	$sql_pressname = "INSERT INTO prescription_bluk_drugs(form,generic_name,trade_name,strength,unit,route,frequency,duration,indication,instructions) VALUES ('".$variables_form."','".$generic_name."','".$trade_name."', '".$variables_strength."', '".$variables_unit."', '".$variables_route."', '".$variables_frequency."', '".$variables_duration."', '".$variables_indication."', '".$variables_instructions."')";
 	$db->exec($sql_pressname);
+	//echo "string";
 }
 
 header('Location:../views/'.$retunurl.'.php?id='.$user_id.'#short_term');

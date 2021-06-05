@@ -27,6 +27,22 @@ for($i=0; $trow = $today_patients->fetch(); $i++){
         $result->execute();
     }
 
+
+    $temp_drug_allergies = $db->prepare("SELECT * FROM temp_drug_allergies WHERE user_id=$user_id");
+    $temp_drug_allergies->execute();
+
+    for($i=0; $row = $temp_drug_allergies->fetch(); $i++){
+        $id = $row['id'];
+        $drug_allergies = $row['drug_allergies'];
+        $sql_pressname = "INSERT INTO save_drug_allergies( prescription_number, drug_allergies ) VALUES ('".$patients_prescription_number."','".$drug_allergies."')";
+        $db->exec($sql_pressname);
+
+        $result = $db->prepare("DELETE FROM temp_drug_allergies WHERE id= $id");
+        $result->execute();
+    }
+
+
+
     $temp_next_visits = $db->prepare("SELECT * FROM temp_next_visits WHERE user_id=$user_id");
     $temp_next_visits->execute();
 
@@ -65,35 +81,52 @@ for($i=0; $trow = $today_patients->fetch(); $i++){
         $result->execute();
     }
     
-    $temp_investigations_group = $db->prepare("SELECT * FROM temp_investigations_group WHERE user_id=$user_id");
-    $temp_investigations_group->execute();
-    for($t=0; $trow = $temp_investigations_group->fetch(); $t++){
-        $tid = $trow['id'];
-        $tday_id = $trow['day_id'];
-        $ttest_catagory = $trow['test_catagory'];
-        $ttest_id = $trow['test_id'];
 
-        $group_sql = "INSERT INTO save_investigations_group(day_id,test_catagory,test_id) VALUES ('".$tday_id."','".$ttest_catagory."','".$ttest_id."')";
-        $db->exec($group_sql);
+    $temp_investigations_days = $db->prepare("SELECT * FROM temp_investigations_days WHERE user_id=$user_id");
+    $temp_investigations_days->execute();
+    for($t=0; $drow = $temp_investigations_days->fetch(); $t++){
+        $did = $drow['id'];
+        $ddays = $drow['days'];
 
+        $sgroup_sql = "INSERT INTO save_investigations_days(prescription_number,days) VALUES ('".$patients_prescription_number."','".$ddays."')";
+        $db->exec($sgroup_sql);
+        $lastid = $db->lastInsertId();
 
-        $temp_test = $db->prepare("SELECT * FROM temp_test WHERE group_id=$tid");
-        $temp_test->execute();
-        for($f=0; $row = $temp_test->fetch(); $f++){
-            $id = $row['id'];
-            $indications = $row['indications'];
-            $indications_id = $row['indications_id'];
-            $test = $row['test'];
-            $test_id = $row['test_id'];
-            $sql_pressname = "INSERT INTO save_test( group_id, indications, indications_id, test, test_id ) VALUES ( '".$tid."','".$indications."','".$indications_id."','".$test."','".$test_id."')";
-            $db->exec($sql_pressname);
+        $temp_investigations_group = $db->prepare("SELECT * FROM temp_investigations_group WHERE user_id=$user_id AND day_id = $did");
+        $temp_investigations_group->execute();
+        for($t=0; $trow = $temp_investigations_group->fetch(); $t++){
+            $tid = $trow['id'];
+            $ttest_catagory = $trow['test_catagory'];
+            $ttest_id = $trow['test_id'];
 
-            $result = $db->prepare("DELETE FROM temp_test WHERE id= $id");
+            $group_sql = "INSERT INTO save_investigations_group(day_id,test_catagory,test_id,prescription_number) VALUES ('".$lastid."','".$ttest_catagory."','".$ttest_id."','".$patients_prescription_number."')";
+            $db->exec($group_sql);
+            $lastidg = $db->lastInsertId();
+
+            $temp_test = $db->prepare("SELECT * FROM temp_test WHERE group_id=$tid");
+            $temp_test->execute();
+            for($f=0; $row = $temp_test->fetch(); $f++){
+                $id = $row['id'];
+                $indications = $row['indications'];
+                $indications_id = $row['indications_id'];
+                $test = $row['test'];
+                $test_id = $row['test_id'];
+
+                $sql_pressname = "INSERT INTO save_test( group_id, indications, indications_id, test, test_id ) VALUES ( '".$lastidg."','".$indications."','".$indications_id."','".$test."','".$test_id."')";
+                $db->exec($sql_pressname);
+
+                $result = $db->prepare("DELETE FROM temp_test WHERE id= $id");
+                $result->execute();
+            }
+
+            $result = $db->prepare("DELETE FROM temp_investigations_group WHERE id= $tid");
             $result->execute();
         }
-        $result = $db->prepare("DELETE FROM temp_investigations_group WHERE id= $tid");
+
+        $result = $db->prepare("DELETE FROM temp_investigations_days WHERE id= $did");
         $result->execute();
     }
+
 
     $temp_test = $db->prepare("SELECT * FROM temp_assign_a_doctor WHERE user_id=$user_id");
     $temp_test->execute();

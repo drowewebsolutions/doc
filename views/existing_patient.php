@@ -9,6 +9,10 @@
   $pr_result = $db->query($pr_slq)->fetch();
   $prescription_number = $pr_result['id'];
 
+
+  $tp_slq = "SELECT * FROM today_patients WHERE patients_id=$user_id order by id desc";
+  $tp_result = $db->query($tp_slq)->fetch();
+
   $patients_other_details_slq = "SELECT * FROM temp_patients_other_details WHERE patients_id=$user_id ";
   $patients_other_details_result = $db->query($patients_other_details_slq)->fetch();
 
@@ -52,7 +56,7 @@
                 <tr>
                   <td>Residence</td>
                   <td>
-                    <select class="form-control desabl" style="width: 100%;" name="residence" >
+                    <select class="form-control desabl" style="width: 100%;" name="residence" disabled>
                     <option value="<?php echo explode(",", $ndf_result['residence'])[0]; ?>" selected="selected"><?php echo explode(",", $ndf_result['residence'])[0]; ?></option>
                      
                   </select>
@@ -62,7 +66,7 @@
                   <td>Payment</td>
                   <td>
                     <select name="report_or_consultation" class="form-control" required>
-                      
+                        <option><?php echo $tp_result['report_or_consultation']; ?></option>
                         <option>Consultation</option>
                         <option>Report</option>
                     </select>
@@ -70,12 +74,13 @@
                 </tr>
                 <tr>
                   <td>Phone</td>
-                  <td><input type="text" class="form-control desabl" name="phone" value="<?php echo $ndf_result['phone']; ?>" ></td>
+                  <td><input type="text" class="form-control desabl" name="phone" value="<?php echo $ndf_result['phone']; ?>" disabled></td>
                 </tr>
                 <tr>
                   <td>Session</td>
                   <td>
                     <select name="time" class="form-control" required>
+                      <option><?php echo $tp_result['time']; ?></option>
                         <?php
                         $start=strtotime('00:00');
                         $end=strtotime('24:00');
@@ -90,6 +95,7 @@
                   <td>Appointment number</td>
                   <td>
                     <select name="apnumber" class="form-control" required>
+                      <option><?php echo $tp_result['apnumber']; ?></option>
                       <?php for ($i=0; $i<=100;  $i++) { ?>
                       <?php if( $i == '0'){ }else{  ?> 
                         <option value="<?php if(1 <= $i && $i <= 9){ echo'0';} echo $i;?>"><?php if(1 <= $i && $i <= 9){ echo'0';} echo $i;?></option>

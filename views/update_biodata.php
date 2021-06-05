@@ -1,6 +1,6 @@
 <?php 
   include'../config/config.php';
-  include'../inc/header.php'; 
+  include'../inc/header.php';  
   $id = $_GET['id'];
   $si_slq = "SELECT * FROM patients_details WHERE patients_id='$id '";
   $id_si = $db->query($si_slq)->fetch();
@@ -20,7 +20,9 @@
                
                 <tr>
                   <td>Name</td>
-                  <td><input type="text" class="form-control" value="<?php echo $id_si["name"]; ?>" name="name" ></td>
+                  <td><input type="hidden" class="form-control" value="<?php echo $id; ?>" name="id" >
+                    <input type="text" class="form-control" value="<?php echo $id_si["name"]; ?>" name="name" >
+                  </td>
                 </tr>
                 <tr>
                   <td>Gender</td>

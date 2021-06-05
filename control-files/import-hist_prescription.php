@@ -32,16 +32,16 @@ for($q=0; $row = $temp_prescription_drugs->fetch(); $q++){
     $db->exec($sql_pressname);
 }
 
-$save_test = $db->prepare("SELECT * FROM save_test WHERE prescription_number=$id");
-$save_test->execute();
-for($i=0; $row = $save_test->fetch(); $i++){
+// $save_test = $db->prepare("SELECT * FROM save_test WHERE prescription_number=$id");
+// $save_test->execute();
+// for($i=0; $row = $save_test->fetch(); $i++){
 
-    $test = $row['test'];
-    $investigations = $row['investigations'];
-    $investigations_id = $row['investigations_id'];
-    $sql_pressname = "INSERT INTO histy_test( user_id, test, investigations, investigations_id ) VALUES ('".$userid."','".$test."','".$investigations."','".$investigations_id."')";
-    $db->exec($sql_pressname);
-}
+//     $test = $row['test'];
+//     $investigations = $row['investigations'];
+//     $investigations_id = $row['investigations_id'];
+//     $sql_pressname = "INSERT INTO histy_test( user_id, test, investigations, investigations_id ) VALUES ('".$userid."','".$test."','".$investigations."','".$investigations_id."')";
+//     $db->exec($sql_pressname);
+// }
 
 $save_assign_a_doctor = $db->prepare("SELECT * FROM save_assign_a_doctor WHERE prescription_number=$id");
 $save_assign_a_doctor->execute();

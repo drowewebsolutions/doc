@@ -2,13 +2,15 @@
 include'../config/config.php';
 
 $id = $_POST['id'];
-$variables_name = $_POST['variables_name'];
-$variables_name_sinhala = $_POST['variables_name_sinhala'];
-$special_instruction = $_POST['special_instruction'];
-$special_instruction_sinhala = $_POST['special_instruction_sinhala'];
+$name = $_POST['name'];
+$gender = $_POST['gender'];
+$birthday = $_POST['birthday'];
+$residence = $_POST['residence'];
+$phone = $_POST['phone'];
+$occupation = $_POST['occupation'];
 
-$sql = "UPDATE variables_test SET name=?,sinhala=?,special_instruction=?,special_instruction_sinhala=? WHERE id=?";
-$db->prepare($sql)->execute([$variables_name,$variables_name_sinhala,$special_instruction,$special_instruction_sinhala, $id]);
+$sql = "UPDATE patients_details SET name=?,birthday=?,gender=?,phone=?,residence=?,occupation=? WHERE patients_id =?";
+$db->prepare($sql)->execute([$name,$birthday,$gender,$phone,$residence,$occupation, $id]);
 
-header('Location:../views/drug-variables/test-variables.php');
+header('Location:../views/update_biodata.php?id='.$id.'');
 ?>

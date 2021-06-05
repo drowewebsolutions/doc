@@ -1,26 +1,32 @@
 <?php include'../config/config.php';?>
 <?php 
-  if(isset($_GET['data'])) {
-    $nd = $_GET['nd'];
-    $ord_id = $_GET['data'];
 
-    $pat_chck_slq = "SELECT * FROM temp_center_patients_details WHERE `order`="."'".$ord_id."'"." and `center`="."'".$Center."'"." and `nd`="."'".$nd."'"."";
-    $pat_chck_result = $db->query($pat_chck_slq)->fetch();
-    if($pat_chck_result['id']){
-      $pat_array = @unserialize(base64_decode($pat_chck_result['data_arrey']));
-      $las_id = $pat_chck_result['id'];
-      $patients_id = $pat_chck_result['patients_id'];
-    }else{
-      $sql = "INSERT INTO temp_center_patients_details(`order`,`center`,`nd`,`active`) VALUES ('".$ord_id."','".$Center."','".$nd."','1')";
-      $db->exec($sql);
-      $patients_id = null;
-      $pat_array = null;
-      $las_id = $db->lastInsertId();
-    }
-  };
+  $nd = $_GET['nd'];
+  $ord_id = $_GET['data'];
+
+  $pat_chck_slq = "SELECT * FROM temp_center_patients_details WHERE `order`="."'".$ord_id."'"." and `center`="."'".$Center."'"." and `nd`="."'".$nd."'"."";
+  $pat_chck_result = $db->query($pat_chck_slq)->fetch();
+
+  if($pat_chck_result['id']){
+    $pat_array = @unserialize(base64_decode($pat_chck_result['data_arrey']));
+    $las_id = $pat_chck_result['id'];
+    $patients_id = $pat_chck_result['patients_id'];
+  }else{
+    $sql = "INSERT INTO temp_center_patients_details(`order`,`center`,`nd`,`active`) VALUES ('".$ord_id."','".$Center."','".$nd."','1')";
+    $db->exec($sql);
+    $patients_id = null;
+    $pat_array = null;
+    $las_id = $db->lastInsertId();
+  }
+
   include'../inc/header.php'; 
 ?>
- 
+  <?php if($pat_chck_result['id'] == null){ ?>
+    <script>
+      location.reload();
+    </script>
+  <?php  }; ?>
+
   <div class="nes-stat">
     <div class="container">
       <form method="post" id="configform" action="<?php echo $url; ?>control-files/save-nurses-assesment.php">
@@ -64,7 +70,11 @@
                 </tr>
                 <tr>
                   <td>Date of Birth</td>
-                  <td> <input type="text" class="datevalidate form-control" placeholder="YYYY-MM-DD" autocomplete="off" value="<?php echo $pat_array['birthday']; ?>" class="form-control datepicker" name="birthday" ></td>
+                  <td> <input type="text" class="datevalidate form-control" placeholder="YYYY-MM-DD" autocomplete="off" value="<?php echo $pat_array['birthday']; ?>" class="form-control datepicker" name="birthday" id="birthday" ></td>
+                </tr>
+                <tr>
+                  <td>Age</td>
+                  <td> <div id="age" style="padding-left: 6px;"></div></td>
                 </tr>
                 <tr>
                   <td>Residence</td>
@@ -96,7 +106,7 @@
                 </tr>
                 <tr>
                   <td>Phone</td>
-                  <td><input type="text" class="form-control" value="<?php echo $pat_array['phone']; ?>" name="phone" ></td>
+                  <td><input type="text" class="form-control" value="<?php echo $pat_array['phone']; ?>" name="phone" maxlength="10" minlength="10"></td>
                 </tr>
                 <tr>
                   <td>Session</td>
@@ -202,17 +212,6 @@
                       <option>No</option>
                       <option>Yes</option>
                     </select>
-                  </td>
-                </tr>
-                <tr class="femal">
-                  <td>Last menstrual period</td>
-                  <td>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                      </div>
-                      <input type="text" class="form-control datepicker" name="lrmp" >
-                    </div>
                   </td>
                 </tr>
               </table>
@@ -334,11 +333,18 @@
 ?>
 
 <script>
-(function($) {
 
-    <?php if($patients_id==null){ ?>
-        location.reload();
-   <?php }else{ ?>
+(function($) {
+    var result = $("#birthday").val().split('-');
+    var year = new Date().getFullYear();
+    $('#age').text( year - result[0] );
+
+    $("#birthday").on('change', function(){  
+        var result = $(this).val().split('-');
+        var year = new Date().getFullYear();
+        $('#age').text( year - result[0] );
+    });
+
     var Weight = $("input[name='body_Weight']").val();
     var Height  = $("input[name='height']").val();
     var imb = Weight / (Height * Height);
@@ -437,7 +443,6 @@
     $('.select2').select2({
       tags: true,
     });
-  <?php }; ?>
 })(jQuery);
 </script>
 </body>

@@ -79,9 +79,9 @@
                                 <td><b>Age</b></td>
                                 <td>
                                     <?php
-                                    // $birthDate = explode("/", $ndf_result["birthday"]);
-                                    // $age = date("Y") - $birthDate[2];
-                                    // echo $age;
+                                    $birthDate = explode("-", $ndf_result["birthday"]);
+                                    $age = date("Y") - $birthDate[0];
+                                    echo $age;
                                     ?>
                                 </td>
                             </tr>
@@ -509,7 +509,7 @@
                 <div class="col-12">
                     <a href="<?php echo $url; ?>views/prescription-print.php?id=<?php echo $id; ?>" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print English</a>
                     <a href="<?php echo $url; ?>views/prescription-print-sinhala.php?id=<?php echo $id; ?>" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print Sinhala</a>
-                    <a href="<?php echo $url; ?>control-files/complete_patients.php?patients_id=<?php echo $user_id; ?>" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Save</a>
+                    <a href="<?php echo $url; ?>control-files/complete_patients.php?patients_id=<?php echo $user_id; ?>"  class="btn btn-default"><i class="fas fa-print"></i> Save</a>
                     <!-- <a href="<?php echo $url; ?>views/prescription-print-sinhala.php?patients_id=<?php echo $id; ?>" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Send Via Whatsapp</a> -->
                     <a href="<?php echo $url; ?>control-files/clear-prescription.php?id=<?php echo $id; ?>" class="btn bg-danger"> Clear Prescription</a>
                     <!-- <a target="_blank" href="https://api.whatsapp.com/send?file=C:\Users\Sheran\Downloads\AdminLTE 3 _ Dashboard 2.pdf&phone=+94773908394">Send Message</a> -->
@@ -660,8 +660,7 @@ include '../inc/footer.php';
     $('.select2').select2({
         tags: true,
     });
-
-      $('#ilness').on('select2:selecting', function(e) {
+    $(document.body).on("change","#ilness",function(){
 
         var test = this.value;
         var trainindIdArray = test.split(',');
@@ -699,7 +698,6 @@ $(".mychek").click(function () {
 
 
 })(jQuery);
-</script>
 </script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 <?php include '../config/config.php'; ?>
 <link rel="stylesheet" href="<?php echo $url; ?>dist/css/print.css">
-<div class="container-fluid">
+<div class="container-fluid"> 
     <?php
 
     $prescription_number = $_GET['id'];
@@ -193,18 +193,32 @@
                     <!-- /.col -->
                     <div class="col-sm-3 invoice-col">
 
-                        <h6>Diagnoses</h6>
+                        <h6>Diagnoses</h6> 
+                        
                         <table>
                             <?php
                             $result = $db->prepare("SELECT * FROM save_diagnoses WHERE prescription_number=$prescription_number ORDER BY id asc");
                             $result->execute();
                             $r = 1;
-                            for ($i = 0; $row = $result->fetch(); $i++) { ?>
+                            for ($h = 0; $row = $result->fetch(); $h++) { ?>
                                 <tr>
+                                    <td><?php echo $r++; ?></td>
                                     <td><?php echo $row['diagnoses']; ?></td>
                                 </tr>
                             <?php }; ?>
                         </table>
+                        <br>
+                        <h6>DRUG ALLERGIES</h6>
+                        <div id="htm"></div>
+                        <div class="allergies">
+                            <?php
+                            $result = $db->prepare("SELECT * FROM save_drug_allergies WHERE prescription_number='$prescription_number'");
+                            $result->execute();
+                            $r = 1;
+                            for ($h = 0; $row = $result->fetch(); $h++) { ?>
+                                <p><?php echo $row['drug_allergies']; ?>,  </p>
+                            <?php }; ?>
+                        </div>
                     </div>
                 </div>
 
@@ -258,7 +272,7 @@
                     <div class="col-sm-12 ">
                         <div class="investigations">
                             <?php
-                            $result = $db->prepare("SELECT * FROM temp_investigations_days where user_id=$user_id ORDER BY id asc");
+                            $result = $db->prepare("SELECT * FROM save_investigations_days where prescription_number=$prescription_number ORDER BY id asc");
                             $result->execute();
                             $r = 1;
                             for ($i = 0; $row = $result->fetch(); $i++) { 
@@ -272,7 +286,7 @@
                                         <tr>
                                             <td width="100%">
                                                 <?php
-                                                $cat_result = $db->prepare("SELECT * FROM temp_investigations_group where day_id=$day_id ORDER BY id asc");
+                                                $cat_result = $db->prepare("SELECT * FROM save_investigations_group where day_id=$day_id ORDER BY id asc");
                                                 $cat_result->execute(); 
                                                 for ($s = 0; $cat_row = $cat_result->fetch(); $s++) { 
                                                 $group_id = $cat_row['id'];
@@ -296,7 +310,7 @@
                                                         <td width="20%"><?php echo $cat_row['test_catagory']; ?></td>
                                                         <td width="40%">
                                                             <table>
-                                                                <?php $result_ins = $db->prepare("SELECT * FROM temp_test where group_id=$group_id ORDER BY id asc");
+                                                                <?php $result_ins = $db->prepare("SELECT * FROM save_test where group_id=$group_id ORDER BY id asc");
                                                                     $result_ins->execute();
                                                                     for ($s = 0; $ros = $result_ins->fetch(); $s++) { ?>
                                                                     <tr>
@@ -338,7 +352,7 @@
                                 <th>Indication</th>
                             </tr>
                             <?php
-                            $result_assign_a_doctor = $db->prepare("SELECT * FROM temp_assign_a_doctor where user_id=$user_id ORDER BY id asc");
+                            $result_assign_a_doctor = $db->prepare("SELECT * FROM save_assign_a_doctor where prescription_number=$prescription_number ORDER BY id asc");
                             $result_assign_a_doctor->execute(); ?>
                             <?php for ($f = 0; $rownas = $result_assign_a_doctor->fetch(); $f++) {
                                 ?>
@@ -354,12 +368,12 @@
                             <h6>NEXT VISIT</h6>
                             <table class="pres-table nv" width="100%">
                                 <?php
-                                $result_next_visits = $db->prepare("SELECT * FROM temp_next_visits where user_id=$user_id ORDER BY id asc");
+                                $result_next_visits = $db->prepare("SELECT * FROM save_next_visits where prescription_number=$prescription_number ORDER BY id asc");
                                 $result_next_visits->execute();
                                 for ($m = 0; $rownv = $result_next_visits->fetch(); $m++) {
                                 ?>
                                 <tr>
-                                    <td><?php echo $rownv['days']; ?></td>
+                                    <td><?php echo $rownv['day']; ?></td>
                                     <td><?php echo $rownv['pay']; ?></td>
                                 </tr>
                                 <?php }; ?>
