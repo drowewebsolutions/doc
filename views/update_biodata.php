@@ -96,6 +96,12 @@
   <div id="htm"></div>
 <?php include'../inc/footer.php'; ?>
 
-
+<script type="text/javascript">
+  (function ($) {
+    $('.select2').select2({
+      tags: true,
+    });
+  })(jQuery);
+</script>
 </body>
 </html>

@@ -1,5 +1,4 @@
 <?php 
-
 include'../config/config.php';
 $set = $_POST['set'];
 $user_id = $_POST['user_id'];
@@ -25,6 +24,18 @@ for ($f = 0; $f < $test_count; $f++) {
 		$variables_duration = $set[$f]['variables_duration'];
 		$variables_indication = $set[$f]['variables_indication'];
 		$variables_instructions = $set[$f]['variables_instructions']; 
+
+		chckdb($db,$generic_name,'variables_generic_name');
+		chckdb($db,$trade_name,'variables_trade_name');
+		chckdb($db,$variables_form,'variables_form');
+		chckdb($db,$variables_strength,'variables_strength');
+		chckdb($db,$variables_unit,'variables_unit');
+		chckdb($db,$variables_route,'variables_route');
+		chckdb($db,$variables_frequency,'variables_frequency');
+		chckdb($db,$variables_duration,'variables_duration');
+		chckdb($db,$variables_indication,'variables_indication');
+		chckdb($db,$variables_instructions,'variables_instructions');
+
 
 		$sql_pressname = "INSERT INTO temp_prescription_drugs(user_id,form,generic_name,trade_name,strength,unit,route,frequency,duration,indication,instructions,category) VALUES (
 	'".$user_id."', '".$variables_form."','".$generic_name."','".$trade_name."', '".$variables_strength."', '".$variables_unit."', '".$variables_route."', '".$variables_frequency."', '".$variables_duration."', '".$variables_indication."', '".$variables_instructions."', '".$category."')";

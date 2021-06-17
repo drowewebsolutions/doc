@@ -8,29 +8,33 @@
 .prestable tr td{
     vertical-align: top;
 }
-.prestable tr td:nth-child(2){width:2% }
-.prestable tr td:nth-child(3){width:10% }
-.prestable tr td:nth-child(4){width:10%}
-.prestable tr td:nth-child(5){width:14% }
-.prestable tr td:nth-child(6){width:6% }
-.prestable tr td:nth-child(7){width:9% }
-.prestable tr td:nth-child(8){width:6%}
-.prestable tr td:nth-child(9){width:5%  }
-.prestable tr td:nth-child(10){width:11% }
-.prestable tr td:nth-child(11){width:17% }
-.prestable tr td:nth-child(12){width:10% }
+.prestable tr td:nth-child(2){ width: 25px; }
+.prestable tr td:nth-child(3){ width: 125px;}
+.prestable tr td:nth-child(4){ width: 125px;}
+.prestable tr td:nth-child(5){width: 135px;}
+.prestable tr td:nth-child(6){    width: 50px;text-align: right; }
+.prestable tr td:nth-child(7){width: 95px; }
+.prestable tr td:nth-child(8){     width: 50px;}
+.prestable tr td:nth-child(9){width: 50px;}
+.prestable tr td:nth-child(10){     width: 125px; }
+.prestable tr td:nth-child(11){    width: 215px; }
+.prestable tr td:nth-child(12){    width: 30px; }
+.prestable tr td:nth-child(13){ }
 
-.prestable tr th:nth-child(2){width:2% }
-.prestable tr th:nth-child(3){width:10% }
-.prestable tr th:nth-child(4){width:10%}
-.prestable tr th:nth-child(5){width:14% }
-.prestable tr th:nth-child(6){width:6% }
-.prestable tr th:nth-child(7){width:9% }
-.prestable tr th:nth-child(8){width:6%}
-.prestable tr th:nth-child(9){width:5%  }
-.prestable tr th:nth-child(10){width:11% }
-.prestable tr th:nth-child(11){width:17% }
-.prestable tr th:nth-child(12){width:10% }
+.prestable tr th:nth-child(1){width: 25px; }
+.prestable tr th:nth-child(2){width: 125px; }
+.prestable tr th:nth-child(3){width: 125px;}
+.prestable tr th:nth-child(4){width: 135px;}
+.prestable tr th:nth-child(5){width: 50px;  }
+.prestable tr th:nth-child(6){width: 95px;}
+.prestable tr th:nth-child(7){  width: 50px;}
+.prestable tr th:nth-child(8){width: 50px;  }
+.prestable tr th:nth-child(9){width: 125px;}
+.prestable tr th:nth-child(10){width: 215px;  }
+.prestable tr th:nth-child(11){    width: 30px; }
+.vital-right table tr td:nth-child(2){
+    text-align: right;
+}
 sup {
     top: -1.2em;
     font-size: 6px;
@@ -178,9 +182,12 @@ sup {
     padding: 2px 10px;
     font-weight: 600;
     text-transform: uppercase;
-    font-size: 11px;
+    font-size: 10px;
     vertical-align: middle;
     margin-top: 00px !important;
+}
+.imprrow a.svg-btn{
+        padding: 4px 4px;
 }
 .dinamic > div:first-child .indications-col{
 display: block;
@@ -278,4 +285,10 @@ display: table-cell;
 }
 .prescription-heding > div:nth-child(2) table thead tr{
     display: table-row !important;
+}
+.drg-heding .drg_hed{
+    display: none;
+}
+.drg-heding h4:first-child{
+    display: block;
 }

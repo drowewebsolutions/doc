@@ -3,7 +3,7 @@ include'../config/config.php';
 $drugs = $_POST['drugs'];
 $id = $_POST['id'];
 $retunurl = $_POST['retunurl'];
-var_dump($drugs);
+//var_dump($drugs);
 $a=0;
 for ($f = 0; $f < count($drugs); $f++) {
 	$where = $drugs[$a++];

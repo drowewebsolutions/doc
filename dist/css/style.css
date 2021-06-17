@@ -3,7 +3,7 @@
 }
 .header-top a{
 	display: block;
-	width: 10%;
+	width: 9.09%;
 	float: left;
 	background-color: #007bff;
 	text-align: center;
@@ -78,11 +78,12 @@ min-height: 55px;
 padding: 10px 5px;
 line-height: 16px;
 font-weight: 600;
-
+    
 border: 1px solid #ecbc00;
 transition: all 0.5s;
 flex-flow: column;
 }
+
 .sd-delet{
 	background-color: #ff4b4b;
 text-align: center;
@@ -146,6 +147,15 @@ font-size: 15px;
 .actdeis{
     background-color: #0fcc4e  !important;
     border: 1px solid #0fac43  !important;
+
+}
+.chanlcenter .ns13 a{
+       pointer-events: none;
+    cursor: default; 
+}
+.chanlcenter .ns13 a.actdeis{
+            pointer-events: unset;
+    cursor: unset;
 }
 .actdeis.curnt{
     background-color: #13af00 !important;

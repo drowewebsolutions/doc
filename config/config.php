@@ -20,7 +20,7 @@ if(isset($_GET['center'])) {
     }
 } else {
     $Center = $_COOKIE['center'];
-}
+};
 
 function option_dropdown($db,$table){
   $result = $db->prepare("SELECT * FROM ".$table." ORDER BY name");
@@ -31,13 +31,13 @@ function option_dropdown($db,$table){
     echo '<option value="'.$name.','.$id.'">'.$name.'</option>';
   };
 
-}
+};
 
 function checkactive($db,$center,$nd,$order){
     $center_slq = "SELECT id FROM temp_center_patients_details WHERE `order`="."'".$order."'"." AND `center`="."'".$center."'"." AND `nd`="."'".$nd."'";
     $center_result = $db->query($center_slq)->fetch();
     return $center_result['id'];
-}
+};
 
 $onecheck = checkactive($db,$Center,'n','1');
 $towcheck = checkactive($db,$Center,'n','2');
@@ -47,6 +47,25 @@ $onecheck_d = checkactive($db,$Center,'d','1');
 $towcheck_d = checkactive($db,$Center,'d','2');
 $threcheck_d = checkactive($db,$Center,'d','3');
 
+function ifcheck($id,$para){
+    if($id){
+        echo $id,' ', $para;
+    }else{
+        echo "<span style='color:#000'>n/c</span>";
+    }
+};
 
+function chckdb($db,$name,$tabel){
+    $id = substr(strrchr($name, ","), 1);
+    $value = explode(",", $name)[0];
+
+    $a_slq = "SELECT * FROM $tabel WHERE name='$value'";
+    $id_result = $db->query($a_slq)->fetch();
+
+    if(!$id_result["name"]){
+        $sql = "INSERT INTO $tabel(name) VALUES ('".$value."')";
+        $db->exec($sql); 
+    };
+};
 ?>
 

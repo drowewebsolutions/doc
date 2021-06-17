@@ -13,19 +13,6 @@ $variables_instructions = $_POST['variables_instructions'];
 
 $id = $_POST['id'];
 
-function chckdb($db,$name,$tabel){
-	$id = substr(strrchr($name, ","), 1);
-	$value = explode(",", $name)[0];
-
-	$a_slq = "SELECT * FROM $tabel WHERE name='$value'";
-	$id_result = $db->query($a_slq)->fetch();
-
-	if( !$id_result["name"] ){
-		$sql = "INSERT INTO $tabel(name) VALUES ('".$value."')";
-		$db->exec($sql);
-	};
-}
-
 
 chckdb($db,$generic_name,'variables_generic_name');
 chckdb($db,$trade_name,'variables_trade_name');

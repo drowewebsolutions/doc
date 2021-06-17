@@ -22,8 +22,22 @@ $table = $_GET['tb'];
                     Referral
                   </a>
                 </li>
+               
               </ul>
-            <?php }else{ ?>
+            <?php }elseif($table == 'variables_occupation' || $table == 'variables_residence'){ ?>
+              <ul class="nav nav-treeview" style="display: block;">
+                 <li class="nav-item">
+                    <a  class="nav-link <?php if($table == 'variables_occupation'){ echo 'active'; } ?>" href="<?php echo $url; ?>views/drug-variables/variables.php?tb=variables_occupation">
+                      Occupation
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a  class="nav-link <?php if($table == 'variables_residence'){ echo 'active'; } ?>" href="<?php echo $url; ?>views/drug-variables/variables.php?tb=variables_residence">
+                      Residence
+                    </a>
+                  </li>
+                </ul>
+           <?php }else{ ?>
             <ul class="nav nav-treeview" style="display: block;">
               <li class="nav-item">
                 <a class="nav-link <?php if($table == 'variables_generic_name'){ echo 'active'; } ?>" href="<?php echo $url; ?>views/drug-variables/variables.php?tb=variables_generic_name">
@@ -141,7 +155,7 @@ $table = $_GET['tb'];
                 ?>
                 <tr>
                   <td><?php echo $row['name']; ?></td>
-                  <td><?php echo $row['sinhala']; ?></td>
+                  <td><?php echo $row['sinhala']; ?></td> 
                   <td>
                     <form method="post" action="<?php echo $url; ?>control-files/sinhala_update.php">
                       <input type="hidden" value="<?php echo $row['id']; ?>" name="id">
@@ -150,7 +164,7 @@ $table = $_GET['tb'];
                       <button type="submit" class="btn btn-primary btn-sm">Submit</button>
                     </form>
                   </td>
-                  <td><a href="<?php echo $url; ?>control-files/variables/delete.php?id=<?php echo $row['id']; ?>&tb=<?php echo $table; ?>" class="badge bg-danger">Delete</span></td>
+                  <td><span date-id="<?php echo $row['id']; ?>" data-table="<?php echo $table; ?>" class="badge bg-danger del-row">Remove</span></td>
                 </tr>
                 <?php
                   }
@@ -165,6 +179,26 @@ $table = $_GET['tb'];
 </div>
 
 <?php include'../../inc/footer.php'; ?>
+<script type="text/javascript">
+  (function ($) {
+      $(".del-row").click(function () {
+
+        var id = $(this).attr('date-id');
+        var table = $(this).attr('data-table');
+        var diag = $(this).parent().parent();
+
+        $.ajax({
+            type: 'POST',
+            url: '<?php echo $url; ?>control-files/variables/delete.php',
+            data: "id=" + id + "&table=" + table,
+            success: function (data) {
+                //alert(data);
+                //$('#htm').html(data);
+                    diag.fadeOut().remove();
+            }
+        });
+    });
+  })(jQuery);    
 </script>
 </body>
 </html>

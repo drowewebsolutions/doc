@@ -73,16 +73,21 @@
                             </tr>
                             <tr>
                                 <td><b>DOB</b></td>
-                                <td><?php echo($ndf_result["birthday"]); ?></td>
+                                <td><?php if($ndf_result["birthday"]){
+                                    echo $ndf_result["birthday"];
+                                }else{
+                                    echo "UNKNOWN";
+                                }; ?></td>
                             </tr>
                             <tr>
                                 <td><b>Age</b></td>
-                                <td>
-                                    <?php
+                                <td><?php if($ndf_result["birthday"]){
                                     $birthDate = explode("-", $ndf_result["birthday"]);
                                     $age = date("Y") - $birthDate[0];
                                     echo $age;
-                                    ?>
+                                }else{
+                                    echo "UNKNOWN";
+                                }; ?>
                                 </td>
                             </tr>
                             <tr>
@@ -102,10 +107,7 @@
                                 <td><?php echo($ndf_result["gender"]); ?></td>
                             </tr>
                             <?php if ($ndf_result["gender"] == 'Female') { ?>
-                                <tr>
-                                    <td><b>LRMP</b></td>
-                                    <td><?php echo($id_result["lrmp"]); ?></td>
-                                </tr>
+                                
                                 <tr>
                                     <td><b>Pregnant </b></td>
                                     <td><?php echo($id_result["pregnancy"]); ?></td>
@@ -129,35 +131,53 @@
                             </tr>
                         </table>
                     </div>
-                    <div class="col-sm-4 invoice-col">
+                    <div class="col-sm-4 invoice-col vital-right">
                         <h6>VITAL SIGNS</h6>
                         <table>
                             <tr>
                                 <td><b>Height</b></td>
-                                <td><?php echo($id_result["height"]); ?> (m)</td>
+                                <td><?php ifcheck($id_result["height"],'(m)'); ?> </td>
                             </tr>
                             <tr>
                                 <td><b>Weight </b></td>
-                                <td><?php echo($id_result["body_Weight"]); ?> (kg)</td>
+                                <td><?php ifcheck($id_result["body_Weight"],'(kg)'); 
+                                if ($id_result["height"]) {
+                                    $height = $id_result["height"];
+                                }else{
+                                    $height = '0';
+                                }
+                                if ($id_result["body_Weight"]) {
+                                    $weight = $id_result["body_Weight"];
+                                }else{
+                                    $weight = '0';
+                                }
+                            ?> </td>
                             </tr>
                             <tr>
-                                <?php @$bmi_val = $id_result["body_Weight"] / ($id_result["height"] * $id_result["height"]); ?>
+                                <?php if($height=='0' && $weight == '0'){ $bmi_val = '0'; }else{ @$bmi_val = $weight / ($height * $height); }; ?>
                                 <td><b>BMI</b></td>
                                 <td><span class="<?php
                                     if ($bmi_val > 25 || $bmi_val < 18.5) {
                                         echo 'red';
                                     }
-                                    ?>"><?php echo round($bmi_val, 2); ?></span> [18.5 - 24.9]
+                                    ?>"><?php 
+                                    $bmival = round($bmi_val, 2); 
+                                    if($bmival == '0'){
+                                        $bmival = null;
+                                    }
+                                    ifcheck($bmival,'[18.5 - 24.9]');
+                                ?></span> 
                                 </td>
                             </tr>
                             <tr>
                                 <td><b>Ideal body weight (BMI25)</b></td>
-                                <td><?php echo 25 * ($id_result["height"] * $id_result["height"]); ?></td>
+                                <td><?php echo 25 * ($height * $height); ?></td>
                             </tr>
                             <tr>
                                 <td><b>Mid umbilical waist </b></td>
-                                <td><?php echo($id_result["mid"]); ?>
-                                    <?php if ($ndf_result["gender"] == 'Female') { ?> [< 32inches] <?php } else { ?>[< 35inches]  <?php }; ?></td>
+                                <td><?php 
+                            if($ndf_result["gender"] == 'Female') { $verib = '[< 32inches]'; } else { $verib = '[< 35inches]'; }
+                                ifcheck($id_result["mid"],$verib); ?> </td>
                             </tr>
                             <tr>
                                 <td><b>Systolic BP </b></td>
@@ -165,8 +185,8 @@
                                     if ($id_result["systolic_blood_pressure"] < 90 || $id_result["systolic_blood_pressure"] > 120) {
                                         echo 'red';
                                     }
-                                    ?>"><?php echo($id_result["systolic_blood_pressure"]); ?></span>
-                                    [90-120mmHg]
+                                    ?>"><?php ifcheck($id_result["systolic_blood_pressure"],'[90-120mmHg]'); ?></span>
+                                    
                                 </td>
                             </tr>
                             <tr>
@@ -175,14 +195,14 @@
                                     if ($id_result["diastolic_blood_pressure"] < 60 || $id_result["diastolic_blood_pressure"] > 80) {
                                         echo 'red';
                                     }
-                                    ?>"><?php echo($id_result["diastolic_blood_pressure"]); ?></span>
-                                    [60-80mmHg]
+                                    ?>"><?php ifcheck($id_result["diastolic_blood_pressure"],'[60-80mmHg]'); ?></span>
+                                    
                                 </td>
                             </tr>
                             <tr>
                                 <td><b>Blood pressure </b></td>
-                                <td><?php echo($id_result["systolic_blood_pressure"]); ?>
-                                    /<?php echo($id_result["diastolic_blood_pressure"]); ?>[155/90mmHg.]
+                                <td><?php ifcheck($id_result["systolic_blood_pressure"],''); ?>
+                                    /<?php ifcheck($id_result["diastolic_blood_pressure"],'[155/90mmHg.]'); ?>
                                 </td>
                             </tr>
                             <tr>
@@ -191,7 +211,7 @@
                                     if ($id_result["pulse_rate"] < 60 || $id_result["pulse_rate"] > 100) {
                                         echo 'red';
                                     }
-                                    ?>"><?php echo($id_result["pulse_rate"]); ?></span> [60-100bpm]
+                                    ?>"><?php ifcheck($id_result["pulse_rate"],'[60-100bpm]'); ?></span> 
                                 </td>
                             </tr>
                             <tr>
@@ -200,7 +220,7 @@
                                     if ($id_result["respiratory_rate"] < 12 || $id_result["respiratory_rate"] > 20) {
                                         echo 'red';
                                     }
-                                    ?>"><?php echo($id_result["respiratory_rate"]); ?></span> [12-20/min]
+                                    ?>"><?php ifcheck($id_result["respiratory_rate"],'[12-20/min]'); ?></span> 
                                 </td>
                             </tr>
                             <tr>
@@ -209,7 +229,7 @@
                                     if ($id_result["oxygen_saturation"] < 95 || $id_result["oxygen_saturation"] > 100) {
                                         echo 'red';
                                     }
-                                    ?>"><?php echo($id_result["oxygen_saturation"]); ?></span> [95-100%]
+                                    ?>"><?php ifcheck($id_result["oxygen_saturation"],'[95-100%]'); ?></span> 
                                 </td>
                             </tr>
                             <tr>
@@ -218,7 +238,7 @@
                                     if ($id_result["temperature"] < 97 || $id_result["temperature"] > 99) {
                                         echo 'red';
                                     }
-                                    ?>"><?php echo($id_result["temperature"]); ?></span> [97-99 <sup>0</sup>F]
+                                    ?>"><?php ifcheck($id_result["temperature"],'[97-99 <sup>0</sup>F]'); ?></span> 
                                 </td>
                             </tr>
                             <tr>
@@ -227,7 +247,7 @@
                                     if ($id_result["random_blood_suga"] < 80 || $id_result["random_blood_suga"] > 140) {
                                         echo 'red';
                                     }
-                                    ?>"><?php echo($id_result["random_blood_suga"]); ?></span> [80-140mg/dl]
+                                    ?>"><?php ifcheck($id_result["random_blood_suga"],'[80-140mg/dl]'); ?></span> 
                                 </td>
                             </tr>
                         </table>
@@ -291,17 +311,19 @@
                 <table class="prestable pres-table long_term">
               <thead>
               <tr >
-                  <th>Item</th>
+                  <th></th>
                   <th>Trade name</th>
                   <th>Generic Name</th>
                   <th>Form</th>
                   <th>Strength </th>
-                  <th>Route</th>
+                  
                   <th>Frequency</th>
                   <th>Duration</th>
+                  <th>Route</th>
+                  
                   <th>Indication</th>
                   <th>Advice</th>
-                  <th>Action</th>
+                  <th></th>
               </tr>
               </thead>
             </table>                    <?php
@@ -327,11 +349,12 @@
                         <h4 class="hed-bot">Drugs to be used only when needed</h4>
                         <?php include 'parts/when-needed.php';
                     };
+                    echo "<div class='drg-heding'>";
                     $after_slq = "SELECT * FROM temp_prescription_drugs where category='after_the_other' AND user_id=$user_id";
                     $after_result = $db->query($after_slq)->fetch();
                     if (@count($after_result["id"]) >= 1) {
                         ?>
-                        <h4 class="hed-bot">Drugs to be taken in step order</h4>
+                        <h4 class="hed-bot drg_hed">Drugs to be taken in step order</h4>
                         <?php include 'parts/after-the-other.php';
                     }; ?>
                     <?php
@@ -343,11 +366,12 @@
                         if (@count($after_result["id"]) >= 1) {
                             ?>
                             
-                            <h4 class="hed-bot ">Drugs to be taken in step order</h4>
+                            <h4 class="hed-bot drg_hed">Drugs to be taken in step order</h4>
                             <h4 class="hed-bot sml">Step <?php echo $f; ?> </h4>
                             <?php include 'parts/steps_table.php';
                         };
                     }?>
+                    </div>
                 </div>
                 <!-- /.row -->
                 <br><br>
@@ -660,6 +684,7 @@ include '../inc/footer.php';
     $('.select2').select2({
         tags: true,
     });
+    
     $(document.body).on("change","#ilness",function(){
 
         var test = this.value;
@@ -670,9 +695,8 @@ include '../inc/footer.php';
             url: '<?php echo $url; ?>control-files/inst-data-view.php',
             data: "id=" + trainindIdArray[1],
             success: function (data) {
-                //alert(data);
                 $('#hastm').html(data);
-                    //diag.fadeOut().remove();
+                initSelect2();
             }
         });
 
@@ -680,7 +704,9 @@ include '../inc/footer.php';
       });
 
 function initSelect2() {
- $('.select2').select2();
+ $('.select2').select2({
+        tags: true,
+    });
 }
 
 

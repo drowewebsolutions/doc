@@ -4,7 +4,7 @@
 ?>
 <div class="row">
     <div class="col-12 table-responsive">
-    	<?php echo $ilid; ?>
+    	
         <table class="pres-table">
             <thead>
             <tr>

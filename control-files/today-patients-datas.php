@@ -28,9 +28,13 @@ include'../config/config.php';
     </td>
     <td><?php echo ($id_result["gender"][0]); ?></td>
     <td> 
-        <?php $birthDate = explode("-", $id_result["birthday"]);
-                  $age = date("Y") - $birthDate[0];
-                  echo $age;?></td>
+      <?php if($id_result["birthday"]){
+            $birthDate = explode("-", $id_result["birthday"]);
+            $age = date("Y") - $birthDate[0];
+            echo $age;
+        }else{
+            echo "UNKNOWN";
+        }; ?>
     <td><?php echo ($id_result["patients_id"]); ?></td>
     <td><span class="badge
       <?php if($row['report_or_consultation']=="Report"){echo 'btn-primary';}else{ echo 'btn-warning'; } ?> btn-sm"><?php echo $row['report_or_consultation']; ?></span>

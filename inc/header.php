@@ -33,6 +33,7 @@
     <a href="<?php echo $url; ?>views/drug-variables/variables.php?tb=variables_diagnoses">Diagnoses Bank</a>
     <a href="<?php echo $url; ?>views/drug-variables/test-variables.php">Investigation bank</a>
     <a href="<?php echo $url; ?>views/drug-variables/variables.php?tb=variables_doctor">Referrals bank</a>
+    <a href="<?php echo $url; ?>views/drug-variables/variables.php?tb=variables_residence">Occupation and Residence Bank</a>
     <a href="<?php echo $url; ?>views/all-patients.php">Patient Bank</a>
   </div>
   <div class="clear"></div> 
@@ -53,7 +54,7 @@
           </div>
           <div>
             <div class="nss20">
-              <a class="<?php if($threcheck){ echo 'disabled'; } ?>" href="<?php echo $url; ?>views/nurses-assesment.php?nd=n&data=<?php 
+              <a class="<?php if($threcheck && $towcheck && $onecheck){ echo 'disabled'; } ?>" href="<?php echo $url; ?>views/nurses-assesment.php?nd=n&data=<?php 
             if($onecheck == null){ echo '1'; }elseif($towcheck == null){ echo '2'; }elseif($threcheck == null){ echo '3'; } ?>">Add new Patient</a>
             </div>
             <div class="nss20">
@@ -79,7 +80,7 @@
             <label class="doclab">Doctor</label>
           </div>
           <div>
-            <div class="nss20"><a class="<?php if($threcheck_d){ echo 'disabled'; } ?>" href="<?php echo $url; ?>views/doctor-assesment-and-add-parients.php?nd=d&data=<?php 
+            <div class="nss20"><a class="<?php if($threcheck_d && $towcheck_d && $onecheck_d){ echo 'disabled'; } ?>" href="<?php echo $url; ?>views/doctor-assesment-and-add-parients.php?nd=d&data=<?php 
             if($onecheck_d == null){ echo '1'; }elseif($towcheck_d == null){ echo '2'; }elseif($threcheck_d == null){ echo '3'; } ?>">Add new Patient</a></div>
             <div class="nss20"><a class="<?php if($threcheck_d){ echo 'disabled'; } ?>" href="<?php echo $url; ?>views/all-patients.php?nd=d&data=<?php 
             if($onecheck_d == null){ echo '1'; }elseif($towcheck_d == null){ echo '2'; }elseif($threcheck_d == null){ echo '3'; } ?>">Add Previous Patient</a></div>

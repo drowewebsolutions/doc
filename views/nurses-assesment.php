@@ -228,85 +228,85 @@
                 </tr>
                 <tr>
                   <td>Systolic blood pressure </td>
-                  <td><input type="text" class="form-control bldpash" value="<?php echo $pat_array['systolic_blood_pressure']; ?>" name="systolic_blood_pressure" ></td>
+                  <td><input type="text" placeholder="n/c" class="form-control bldpash" value="<?php echo $pat_array['systolic_blood_pressure']; ?>" name="systolic_blood_pressure" ></td>
                   <td>mmHg</td>
                   <td>[90-120]</td>
                 </tr>
                 <tr>
                   <td>Diastolic blood pressure</td>
-                  <td><input type="text" class="form-control bldpash" value="<?php echo $pat_array['diastolic_blood_pressure']; ?>" name="diastolic_blood_pressure" ></td>
+                  <td><input type="text" placeholder="n/c" class="form-control bldpash" value="<?php echo $pat_array['diastolic_blood_pressure']; ?>" name="diastolic_blood_pressure" ></td>
                   <td>mmHg</td>
                   <td>[60-80]</td>
                 </tr>
                 <tr>
                   <td>Blood pressure</td>
-                  <td><input type="text" class="form-control" value="<?php echo $pat_array['blood_pressure']; ?>" name="blood_pressure" disabled ></td>
+                  <td><input type="text" placeholder="n/c" class="form-control" value="<?php echo $pat_array['blood_pressure']; ?>" name="blood_pressure" disabled ></td>
                   <td>mmHg</td>
                   <td>[120/80]</td>
                 </tr>
                 <tr>
                   <td>Random blood glucose</td>
-                  <td><input type="text" class="form-control" value="<?php echo $pat_array['random_blood_suga']; ?>" name="random_blood_suga" ></td>
+                  <td><input type="text" placeholder="n/c" class="form-control" value="<?php echo $pat_array['random_blood_suga']; ?>" name="random_blood_suga" ></td>
                   <td>mg/dl</td>
                   <td>[80-140]</td>
                 </tr>
                 <tr>
                   <td>Body Weight</td>
-                  <td><input type="text" class="form-control inchange" value="<?php echo $pat_array['body_Weight']; ?>" name="body_Weight" ></td>
+                  <td><input type="text" placeholder="n/c" class="form-control inchange" value="<?php echo $pat_array['body_Weight']; ?>" name="body_Weight" ></td>
                   <td>kg</td>
                   <td></td>
                 </tr>
                 <tr>
                   <td>Height</td>
-                  <td><input type="text" class="form-control inchange" value="<?php echo $pat_array['height']; ?>" name="height" ></td>
+                  <td><input type="text" placeholder="n/c" class="form-control inchange height_in" value="<?php echo $pat_array['height']; ?>" name="height" ></td>
                   <td>m</td>
                   <td></td>
                 </tr>
                 <tr>
                   <td>Body mass index[BMI] </td>
-                  <td> <input type="text" class="form-control" value="<?php echo $pat_array['bmi']; ?>" name="bmi" disabled></td>
+                  <td> <input type="text" placeholder="n/c" class="form-control" value="<?php echo $pat_array['bmi']; ?>" name="bmi" disabled></td>
                   <td>kg/m<sup>2</sup></td>
                   <td>[18.5-24.9]</td>
                 </tr>
                 <tr>
                   <td>Ideal body weight [For BMI-25]</td>
-                  <td><input type="text" class="form-control"  name="ideal_body_weight" disabled></td>
-                  <td>Kg</td>
+                  <td><input type="text" placeholder="n/c" class="form-control"  name="ideal_body_weight" disabled></td>
+                  <td>kg</td>
                   <td></td>
                 </tr>
                 <tr>
                   <td>Mid umbilical waist</td>
-                  <td><input type="text" class="form-control" value="<?php echo $pat_array['mid']; ?>" name="mid" ></td>
+                  <td><input type="text" placeholder="n/c" class="form-control" value="<?php echo $pat_array['mid']; ?>" name="mid" ></td>
                   <td>inch</td>
                   <td></td>
                 </tr>
                 <tr>
                   <td>Ideal waist [waist - height ratio]</td>
-                  <td></td>
+                  <td><input type="text" class="form-control" id="ideal_waist"  name="ideal_waist" disabled></td>
                   <td>inch</td>
                   <td></td>
                 </tr>
                 <tr>
                   <td>Pulse rate</td>
-                  <td><input type="text" class="form-control" value="<?php echo $pat_array['pulse_rate']; ?>" name="pulse_rate" ></td>
+                  <td><input type="text" placeholder="n/c" class="form-control" value="<?php echo $pat_array['pulse_rate']; ?>" name="pulse_rate" ></td>
                   <td>beats/min</td>
                   <td>[60-100]</td>
                 </tr>
                 <tr>
                   <td>Respiratory rate</td>
-                  <td><input type="text" class="form-control" value="<?php echo $pat_array['respiratory_rate']; ?>" name="respiratory_rate" ></td>
+                  <td><input type="text" placeholder="n/c" class="form-control" value="<?php echo $pat_array['respiratory_rate']; ?>" name="respiratory_rate" ></td>
                   <td>cycles per/min</td>
                   <td>[12-16]</td>
                 </tr>
                 <tr>
                   <td>Oxygen saturation</td>
-                  <td><input type="text" class="form-control" value="<?php echo $pat_array['oxygen_saturation']; ?>" name="oxygen_saturation" ></td>
+                  <td><input type="text" placeholder="n/c" class="form-control" value="<?php echo $pat_array['oxygen_saturation']; ?>" name="oxygen_saturation" ></td>
                   <td>%</td>
                   <td>[95-100]</td>
                 </tr>
                 <tr>
                   <td>Temperature</td>
-                  <td><input type="text" class="form-control" value="<?php echo $pat_array['temperature']; ?>" name="temperature" ></td>
+                  <td><input type="text" placeholder="n/c" class="form-control" value="<?php echo $pat_array['temperature']; ?>" name="temperature" ></td>
                   <td><sup>0</sup>F</td>
                   <td>[97-99]</td>
                 </tr>
@@ -343,6 +343,12 @@
         var result = $(this).val().split('-');
         var year = new Date().getFullYear();
         $('#age').text( year - result[0] );
+    });
+
+    $(".height_in").on('change', function(){  
+        var height = $(this).val();
+        var ideal_waist = (height * 100) / 5.08;
+        $('#ideal_waist').val(ideal_waist.toFixed(0));
     });
 
     var Weight = $("input[name='body_Weight']").val();

@@ -173,17 +173,6 @@
                   </select>
                   </td>
                 </tr>
-                <tr class="femal">
-                  <td>Last menstrual period</td>
-                  <td>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                      </div>
-                      <input type="text" class="form-control datepicker" name="lrmp" value="<?php echo $patients_details_result['lrmp']; ?>">
-                    </div>
-                  </td>
-                </tr>
               </table>
             </div>
           </div>
@@ -223,24 +212,24 @@
                 <tr>
                   <td>Body Weight</td>
                   <td><input type="text" class="form-control inchange" name="body_Weight" value="<?php echo $patients_details_result['body_Weight']; ?>"></td>
-                  <td>kg</td>
+                  <td>Kg</td>
                   <td></td>
                 </tr>
                 <tr>
                   <td>Height</td>
-                  <td><input type="text" class="form-control inchange" name="height" value="<?php echo $patients_details_result['height']; ?>"></td>
+                  <td><input type="text" class="form-control inchange height_in" name="height" value="<?php echo $patients_details_result['height']; ?>"></td>
                   <td>m</td>
                   <td></td>
                 </tr>
                 <tr>
                   <td>Body mass index[BMI] </td>
                   <td> <input type="text" class="form-control"  name="bmi" disabled></td>
-                  <td>kg/m<sup>2</sup></td>
+                  <td>Kg/m<sup>2</sup></td>
                   <td>[18.5-24.9]</td>
                 </tr>
                 <tr>
                   <td>Ideal body weight [For BMI-25]</td>
-                  <td><input type="text" class="form-control"  name="ideal_body_weight" disabled></td>
+                    <td><input type="text" class="form-control"  name="ideal_body_weight" disabled></td>
                   <td>Kg</td>
                   <td></td>
                 </tr>
@@ -252,7 +241,7 @@
                 </tr>
                 <tr>
                   <td>Ideal waist [waist - height ratio]</td>
-                  <td></td>
+                  <td><input type="text" class="form-control" id="ideal_waist"  name="ideal_waist" disabled></td> 
                   <td>inch</td>
                   <td></td>
                 </tr>
@@ -307,6 +296,7 @@
     $("input[name='bmi']").val(imb.toFixed(2));
     $("input[name='ideal_body_weight']").val(ideal_body_weight.toFixed(2));
 
+
     $(".inchange").on('change', function(){  
 
       var Weight = $("input[name='body_Weight']").val();
@@ -317,6 +307,12 @@
       $("input[name='bmi']").val(imb.toFixed(2));
       $("input[name='ideal_body_weight']").val(ideal_body_weight.toFixed(2));
 
+    });
+
+    $(".height_in").on('change', function(){  
+        var height = $(this).val();
+        var ideal_waist = (height * 100) / 5.08;
+        $('#ideal_waist').val(ideal_waist.toFixed(0));
     });
 
     var sbp = $("input[name='systolic_blood_pressure']").val();

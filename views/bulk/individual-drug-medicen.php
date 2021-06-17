@@ -91,7 +91,9 @@ include'../../inc/footer.php';
         });
 
     });
-    $('.select2').select2();
+    $('.select2').select2({
+          tags: true,
+    });
     $('#myTable').DataTable();
 })(jQuery);
 </script>

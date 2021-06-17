@@ -33,7 +33,8 @@
                                     <tr> 
                                         <td width="150px">
                                              <span style="display: inline-block;vertical-align: top;width: 100px;"><?php echo $row['name']; ?></span>
-                                             <form style="display: inline-block;vertical-align: top">
+                                             <form style="display: inline-block;vertical-align: top" method="post" action="<?php echo $url; ?>control-files/bulk/update_name.php">
+                                                <input type="hidden" name="id" value="<?php echo $id; ?>">
                                                  <input type="text" name="update_dm_name">
                                                  <input type="submit" value="update">
                                              </form>   
@@ -119,7 +120,9 @@ include'../../inc/footer.php';
             var id = $(this).attr('data-id');
             $('.ids').attr('value', id);
         });
-
+$('.select2').select2({
+          tags: true,
+    });
         $('.myTable').DataTable();
     })(jQuery);
 </script>
