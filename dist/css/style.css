@@ -282,3 +282,7 @@ display: block;
 .nav-link.active{
         background-color: #28bb1e;
 }
+.hetcenter{
+    text-align: center;margin-bottom: 22px;
+    text-transform: uppercase;
+}

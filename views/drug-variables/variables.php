@@ -11,6 +11,7 @@ $table = $_GET['tb'];
      <div class="col-12">
           <div>
             <?php if($table == 'variables_doctor' || $table == 'variables_doctor_indication'){ ?>
+              <h2 class="hetcenter">INVESTIGATIONS BANK</h2>
               <ul class="nav nav-treeview" style="display: block;">
                 <li class="nav-item">
                   <a class="nav-link <?php if($table == 'variables_doctor'){ echo 'active'; } ?>" href="<?php echo $url; ?>views/drug-variables/variables.php?tb=variables_doctor">
@@ -25,6 +26,7 @@ $table = $_GET['tb'];
                
               </ul>
             <?php }elseif($table == 'variables_occupation' || $table == 'variables_residence'){ ?>
+              <h2 class="hetcenter">OCCUPATIONS AND RESIDANCES BANK</h2>
               <ul class="nav nav-treeview" style="display: block;">
                  <li class="nav-item">
                     <a  class="nav-link <?php if($table == 'variables_occupation'){ echo 'active'; } ?>" href="<?php echo $url; ?>views/drug-variables/variables.php?tb=variables_occupation">
@@ -37,7 +39,10 @@ $table = $_GET['tb'];
                     </a>
                   </li>
                 </ul>
-           <?php }else{ ?>
+           <?php }elseif($table == 'variables_diagnoses'){
+
+           }else{ ?>
+            <h2 class="hetcenter">DRUG COMPONENT BANK</h2>
             <ul class="nav nav-treeview" style="display: block;">
               <li class="nav-item">
                 <a class="nav-link <?php if($table == 'variables_generic_name'){ echo 'active'; } ?>" href="<?php echo $url; ?>views/drug-variables/variables.php?tb=variables_generic_name">

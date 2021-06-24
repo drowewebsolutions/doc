@@ -4,6 +4,7 @@
  ?>
   <div class="nes-stat">
     <div class="container">
+        <h2 class="hetcenter">PATIENT BANK</h2>
       <table id="myTable" class="table table-hover text-nowrap">
         <thead>
           <tr>

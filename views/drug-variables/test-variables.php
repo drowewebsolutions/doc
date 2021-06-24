@@ -5,6 +5,7 @@
   <div class="nes-statr">
     <section class="content">
       <div class="container">
+         <h2 class="hetcenter">INVESTIGATIONS BANK</h2>
         <table class="test-table">
           <form role="form" action="<?php echo $url; ?>control-files/test-save.php" method="post">
           <tr>

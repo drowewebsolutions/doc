@@ -175,6 +175,10 @@
                                 <td><?php echo 25 * ($height * $height); ?></td>
                             </tr>
                             <tr>
+                              <td><b>Ideal waist [waist - height ratio]</b></td>
+                              <td><?php echo round((($height * 100) / 5.08),'2'); ?> inch</td>
+                            </tr>
+                            <tr>
                                 <td><b>Mid umbilical waist </b></td>
                                 <td><?php 
                             if($ndf_result["gender"] == 'Female') { $verib = '[< 32inches]'; } else { $verib = '[< 35inches]'; }

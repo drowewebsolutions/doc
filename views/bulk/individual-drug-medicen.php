@@ -4,7 +4,7 @@
  ?>
   <div class="nes-stat">
     <div class="container">
-            <h2>Individual Drug Bank</h2>
+            <h2 class="hetcenter">INDIVIDUAL DRUG BANK</h2>
             <div class="row">
                 <div class="col-12">
                     <div class="col-sm-2">
