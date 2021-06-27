@@ -280,7 +280,7 @@
                             <?php }; ?>
                         </table>
                         <br>
-                        <?php if($id_result["allergies"] == 'Present'){ ?>
+                      
                         <button type="button" class="btn btn-block btn-primary col-11" data-toggle="modal" data-target="#drug_allergies">Add Allergies</button>
                         <br>
                         <h6>DRUG ALLERGIES</h6>
@@ -294,7 +294,7 @@
                                 <p><?php echo $row['drug_allergies']; ?> <span date-id="<?php echo $row['id']; ?>" data-table="temp_drug_allergies" class="badge bg-danger del-row-algy">Remove</span>,  </p>
                             <?php }; ?>
                         </div>
-                        <?php }; ?>
+                        
                     </div>
 
                     <!-- /.col -->
@@ -719,12 +719,14 @@ $(".mychek").click(function () {
 
     if ($(this).is(":checked")) {
         $(this).closest(".row").addClass("selected");
-
+        $(this).parent().find('.check').val('1');
     } else {
         $(this).closest(".row").removeClass("selected");
+        $(this).parent().find('.check').val('0');
     }
 
 });
+
 
 
 })(jQuery);

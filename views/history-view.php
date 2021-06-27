@@ -281,21 +281,19 @@
                             <?php }; ?>
                         </table>
                         <br class="">
-                        <?php if($id_result["allergies"] == 'Present'){ ?>
                         <button type="button" class="btn btn-block btn-primary col-11 " data-toggle="modal" data-target="#drug_allergies">Add Allergies</button>
                         <br>
                         <h6>DRUG ALLERGIES</h6>
                         <div id="htm"></div>
-                        <div>
+                        <div class="allergies">
                             <?php
-                            $result = $db->prepare("SELECT * FROM drug_allergies WHERE patients_id=$user_id ORDER BY id asc");
+                            $result = $db->prepare("SELECT * FROM histy_drug_allergies WHERE user_id=$user_id ORDER BY id asc");
                             $result->execute();
                             $r = 1;
                             for ($h = 0; $row = $result->fetch(); $h++) { ?>
-                                <p><?php echo $row['allergies']; ?> <span date-id="<?php echo $row['id']; ?>" data-table="histy_diagnoses" class="badge bg-danger del-row">Remove</span>,  </p>
+                                <p><?php echo $row['drug_allergies']; ?> <span date-id="<?php echo $row['id']; ?>" data-table="histy_drug_allergies" class="badge bg-danger del-row-algy">Remove</span>,  </p>
                             <?php }; ?>
                         </div>
-                        <?php }; ?>
                     </div>
 
                     <!-- /.col -->
@@ -534,6 +532,21 @@ include '../inc/footer.php';
         });
     });
 
+    // Deletes row-algy
+    $(".del-row-algy").click(function () {
+        var id = $(this).attr('date-id');
+        var table = $(this).attr('data-table');
+        var diag = $(this).parent();
+
+        $.ajax({
+            type: 'POST',
+            url: '<?php echo $url; ?>control-files/remove-prescription-data.php',
+            data: "id=" + id + "&table=" + table,
+            success: function (data) {
+                    diag.fadeOut().remove();
+            }
+        });
+    });
 
     $(".sortable").sortable({
 

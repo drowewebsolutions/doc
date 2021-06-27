@@ -4,20 +4,21 @@ $test = $_POST['test'];
 $indications = $_POST['indications'];
 $test_catagory = $_POST['test_cat'];
 
-
-if(isset($_POST['abndl'])){
-	$abndl = $_POST['abndl'];
-}else{
-	$abndl = null;
-}
-var_dump($indications);
+$abndl = $_POST['abndl'];
+	//var_dump(	$abndl);
+// if(isset($_POST['abndl'])){
+// 	$abndl = $_POST['abndl'];
+// }else{
+// 	$abndl = null;
+// }
+//var_dump($indications);
 
 $days = $_POST['investigations'].'-'.$_POST['month'];
 $retunurl = $_POST['retunurl'];
 $id = $_POST['id'];
 
 $test_catagory_count = count($test_catagory);
-$test_count = count($test);
+$test_count = count($abndl);
 $indications_count = count($indications);
 $a=0;
 
@@ -38,11 +39,13 @@ $last_id = $db->lastInsertId();
 
 for ($f = 0; $f < $test_count; $f++) {
 
+
 	$main_test = explode(",",  $test_catagory[$f])[0];
 	$main_test_id = explode(",",  $test_catagory[$f])[1];
 
 	$indications_value_blk = explode(",",  @$indications[$f][0])[0];
-	if(isset(explode(",",  $indications[$f][0])[1])){
+
+	if(isset(explode(",",  @$indications[$f][0])[1])){
 		$indications_id_blk = explode(",",  $indications[$f][0])[1];
 	}else{
 		$indications_id_blk = $main_test_id;
@@ -55,8 +58,8 @@ for ($f = 0; $f < $test_count; $f++) {
 
 
 	$test_count_in =  count($test[$f]);
-	$indications_count_in =  count($indications[$f]);
-		
+	@$indications_count_in =  count($indications[$f]);
+	//	var_dump($abndl[$f]);
 	if($abndl[$f] == "1"){
 
 		for ($w = 0; $w < $test_count_in; $w++) {

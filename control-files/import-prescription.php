@@ -12,6 +12,15 @@ for($i=0; $row = $temp_diagnoses->fetch(); $i++){
     $db->exec($sql_pressname);
 }
 
+$save_drug_allergies = $db->prepare("SELECT * FROM save_drug_allergies WHERE prescription_number=$id");
+$save_drug_allergies->execute();
+for($i=0; $row = $save_drug_allergies->fetch(); $i++){
+
+    $drug_allergies = $row['drug_allergies'];
+    $sql_pressname = "INSERT INTO temp_drug_allergies( user_id, drug_allergies ) VALUES ('".$userid."','".$drug_allergies."')";
+    $db->exec($sql_pressname);
+}
+
 $temp_prescription_drugs = $db->prepare("SELECT * FROM save_prescription_drugs WHERE prescription_number=$id");
 $temp_prescription_drugs->execute();
 for($q=0; $row = $temp_prescription_drugs->fetch(); $q++){

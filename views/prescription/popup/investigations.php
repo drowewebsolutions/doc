@@ -69,8 +69,8 @@
                   <div class="row">
                     <div class="col-sm-2">
                       <input type="hidden" name="test_cat[<?php echo $r; ?>]" value="<?php echo $row['name'],',',$row['id']; ?>">
-                    <!--   <input type="hidden" name="test[<?php echo $r; ?>][]" value="<?php echo $row['name']; ?>,<?php echo $row['id']; ?>"> -->
-                      <input type="checkbox" class="mychek" name="abndl[]" value="1">
+                      <input type="checkbox" class="mychek" name="das" value="1">
+                      <input type="hidden" name="abndl[]" class="check" value="0">
                       <label style="font-size: 12px;">Add Bundle</label>
                     </div>
                     <div class="col-sm-4">

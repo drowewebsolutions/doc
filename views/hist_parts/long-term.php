@@ -27,7 +27,7 @@
         ?>
       <tr>
         <td style="display: none" class='coun' data-post-id="<?php echo $r; ?>"><span><?php echo $r; ?></span><span style="display: none;">,<?php  echo $row['id']; ?></span></td>
-          <td><?php  if(explode(",", $row['trade_name'])[0] == '--'){}else{ echo $s++;} ?></td>
+          <td><?php  if(explode(",", $row['trade_name'])[0] == ''){}else{ echo $s++;} ?></td>
         <td><?php echo explode(",", $row['trade_name'])[0]; ?></td>
         <td><?php echo explode(",", $row['generic_name'])[0]; ?></td>
         <td><?php echo explode(",", $row['form'])[0]; ?></td>
