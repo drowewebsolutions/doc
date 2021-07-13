@@ -1,16 +1,17 @@
 <?php 
 include'../config/config.php';
 $test = $_POST['test'];
-$indications = $_POST['indications'];
+
+if(isset($_POST['indications'])){
+	$indications = $_POST['indications'];
+}else{
+	$indications = null;
+}
+
 $test_catagory = $_POST['test_cat'];
 
 $abndl = $_POST['abndl'];
-	//var_dump(	$abndl);
-// if(isset($_POST['abndl'])){
-// 	$abndl = $_POST['abndl'];
-// }else{
-// 	$abndl = null;
-// }
+$countabndl = count($abndl);
 //var_dump($indications);
 
 $days = $_POST['investigations'].'-'.$_POST['month'];
@@ -19,8 +20,15 @@ $id = $_POST['id'];
 
 $test_catagory_count = count($test_catagory);
 $test_count = count($abndl);
-$indications_count = count($indications);
+
+if(isset($_POST['indications'])){
+	$indications_count = count($indications);
+}else{
+	$indications_count = '0';
+}
+
 $a=0;
+
 
 
 function remove_empty($array) {
@@ -37,128 +45,105 @@ $last_id = $db->lastInsertId();
 
 
 
-for ($f = 0; $f < $test_count; $f++) {
+for ($f = 0; $f < $countabndl; $f++) {
 
-
+	$bndlact = $abndl[$f];
 	$main_test = explode(",",  $test_catagory[$f])[0];
 	$main_test_id = explode(",",  $test_catagory[$f])[1];
+	$testval = @$test[$f];
+  $indications_value_blk = @$indications[$f];
 
-	$indications_value_blk = explode(",",  @$indications[$f][0])[0];
+  
+	if(!$testval == null){
+		if($bndlact == '1'){
 
-	if(isset(explode(",",  @$indications[$f][0])[1])){
-		$indications_id_blk = explode(",",  $indications[$f][0])[1];
-	}else{
-		$indications_id_blk = $main_test_id;
-	}
+			$test_count_in = count($testval);
+			
+			$group_sql = "INSERT INTO temp_investigations_group(day_id,test_catagory,test_id,user_id) VALUES ('".$last_id."','".$main_test."','".$main_test_id."','".$id."')";
+			$db->exec($group_sql);
+			$group_id = $db->lastInsertId();
+
+			$test_value = array();
+			$test_value_id = array();
+
+			for ($w = 0; $w < $test_count_in; $w++) {
+				 	$test_value_cal = explode(",",  $test[$f][$w])[0];
+				 	$test_value[] = explode(",",  $test[$f][$w])[0];
+				 	$test_value_id[] = explode(",",  $test[$f][$w])[1];
 
 
-	$group_sql = "INSERT INTO temp_investigations_group(day_id,test_catagory,test_id,user_id) VALUES ('".$last_id."','".$main_test."','".$main_test_id."','".$id."')";
-	$db->exec($group_sql);
-	$group_id = $db->lastInsertId();
+				$a_slqunits = "SELECT * FROM variables_test_units WHERE name='$test_value_cal'";
+				$units_result = $db->query($a_slqunits)->fetch();
+				if(!$units_result["name"]){
+					$variables_test_units = "INSERT INTO variables_test_units(name,test_id) VALUES ('".$test_value_cal."','".$main_test_id."')";
+					$db->exec($variables_test_units);
+				}
+			}
 
-
-	$test_count_in =  count($test[$f]);
-	@$indications_count_in =  count($indications[$f]);
-	//	var_dump($abndl[$f]);
-	if($abndl[$f] == "1"){
-
-		for ($w = 0; $w < $test_count_in; $w++) {
-
-			$test_value[] = explode(",",  $test[$f][$w])[0];
-			$test_value_cal = explode(",",  $test[$f][$w])[0];
-			if(isset(explode(",",  $test[$f][$w])[1])){
-				$test_id[] = explode(",",  $test[$f][$w])[1];
-				$test_id_cal = explode(",",  $test[$f][$w])[1];
+			if(isset(explode(",",  $indications_value_blk[0])[0])){
+				$indications_value_cal = explode(",",  $indications_value_blk[0])[0];
 			}else{
-				$test_id[] = $main_test_id;
-				$test_id_cal = $main_test_id;
+				$indications_value_cal = '-';
 			}
-
-			$a_slqunits = "SELECT * FROM variables_test_units WHERE name='$test_value_cal'";
-			$units_result = $db->query($a_slqunits)->fetch();
-			if(!$units_result["name"]){
-				$variables_test_units = "INSERT INTO variables_test_units(name,test_id) VALUES ('".$test_value_cal."','".$test_id_cal."')";
-				$db->exec($variables_test_units);
-			}
-
-		}
-
-		for ($u = 0; $u < $indications_count_in; $u++) {
-
-			$indications_value[] = explode(",",  $indications[$f][$u])[0];
-			$indications_value_cal = explode(",",  $indications[$f][$u])[0];
-			if(isset(explode(",",  $indications[$f][$u])[1])){
-				$indications_id[] = explode(",",  $indications[$f][$u])[1];
-				$indications_id_cal = explode(",",  $indications[$f][$u])[1];
+			
+			if(isset(explode(",",  $indications_value_blk[0])[1])){
+				$comindications_id = explode(",",  $indications_value_blk[0])[1];
 			}else{
-				$indications_id[] = $main_indications_id;
-				$indications_id_cal = $main_indications_id;
-			}
-
-			$a_slqunits = "SELECT * FROM variables_test_indications WHERE name='$indications_value_cal'";
-			$units_result = $db->query($a_slqunits)->fetch();
-			if(!$units_result["name"]){
-				$variables_test_units = "INSERT INTO variables_test_indications(name,test_id) VALUES ('".$indications_value_cal."','".$test_id_cal."')";
-				$db->exec($variables_test_units);
-			}
-
-		}
-
-
-
-		$comtest_value = implode(', ', remove_empty($test_value));
-		$comtest_id = implode(', ', remove_empty($test_id));
-
-		$comindications_value = implode(', ', remove_empty($indications_value));
-		$comindications_id = implode(', ', remove_empty($indications_id));
-
-
-		$sql = "INSERT INTO temp_test(group_id,indications,indications_id,test,test_id) VALUES ('".$group_id."','".$comindications_value."','".$comindications_id."','".$comtest_value."','".$comtest_id."')";
-		$db->exec($sql);
-
-
-	}else{
-
-		for ($w = 0; $w < $test_count_in; $w++) {
-
-			$test_value = explode(",",  $test[$f][$w])[0];
-
-			if(isset(explode(",",  $test[$f][$w])[1])){
-				$test_id = explode(",",  $test[$f][$w])[1];
-			}else{
-				$test_id = $main_test_id;
+				$comindications_id = '-';
 			}
 			
 
-			$indica_value = explode(",",  $indications[$f][$w])[0];
-
-			if(isset(explode(",",  $indications[$f][$w])[1])){
-				$indications_id = explode(",",  $indications[$f][$w])[1];
-			}else{
-				$indications_id = $main_test_id;
-			}
-			
-			$a_slq = "SELECT * FROM variables_test_indications WHERE name='$test_value'";
-			$id_result = $db->query($a_slq)->fetch();
-			if(!$id_result["name"]){
-				$indications_sql = "INSERT INTO variables_test_indications(name,test_id) VALUES ('".$indica_value."','".$test_id."')";
-				$db->exec($indications_sql);
-			}
-
-			$a_slqunits = "SELECT * FROM variables_test_units WHERE name='$indica_value'";
-			$units_result = $db->query($a_slqunits)->fetch();
-			if(!$units_result["name"]){
-				$variables_test_units = "INSERT INTO variables_test_units(name,test_id) VALUES ('".$test_value."','".$test_id."')";
+			$a_indications = "SELECT * FROM variables_test_units WHERE name='$indications_value_cal'";
+			$indications_result = $db->query($a_indications)->fetch();
+			if(!$indications_result["name"]){
+				$variables_test_units = "INSERT INTO variables_test_indications(name,test_id) VALUES ('".$indications_value_cal."','".$main_test_id."')";
 				$db->exec($variables_test_units);
 			}
 
-			$sql_tp = "INSERT INTO temp_test(group_id,indications,indications_id,test,test_id) VALUES ('".$group_id."','".$indica_value."','".$indications_id."','".$test_value."','".$test_id."')";
-			$db->exec($sql_tp);
+			$test_value = implode(', ', remove_empty($test_value));
+			$test_value_id = implode(', ', remove_empty($test_value_id));
+			
+			$sql = "INSERT INTO temp_test(group_id,indications,indications_id,test,test_id) VALUES ('".$group_id."','".$indications_value_cal."','".$comindications_id."','".$test_value."','".$test_value_id."')";
+			$db->exec($sql);
 
-		
+		}else{
+
+			$test_count_in = count($testval);
+			
+			$group_sql = "INSERT INTO temp_investigations_group(day_id,test_catagory,test_id,user_id) VALUES ('".$last_id."','".$main_test."','".$main_test_id."','".$id."')";
+			$db->exec($group_sql);
+			$group_id = $db->lastInsertId();
+
+			for ($y = 0; $y < $test_count_in; $y++) {
+				 	$test_value = explode(",",  $test[$f][$y])[0];
+				 	$test_value_id = explode(",",  $test[$f][$y])[1];
+
+				 	$indications_value_cal = explode(",",  $indications_value_blk[0])[0];
+					$comindications_id = explode(",",  $indications_value_blk[0])[1];
+
+					$a_slqunits = "SELECT * FROM variables_test_units WHERE name='$test_value'";
+					$units_result = $db->query($a_slqunits)->fetch();
+					if(!$units_result["name"]){
+						$variables_test_units = "INSERT INTO variables_test_units(name,test_id) VALUES ('".$test_value."','".$main_test_id."')";
+						$db->exec($variables_test_units);
+					}
+
+					$a_indications = "SELECT * FROM variables_test_units WHERE name='$indications_value_cal'";
+					$indications_result = $db->query($a_indications)->fetch();
+					if(!$indications_result["name"]){
+						$variables_test_units = "INSERT INTO variables_test_indications(name,test_id) VALUES ('".$indications_value_cal."','".$main_test_id."')";
+						$db->exec($variables_test_units);
+					}
+
+					$sql = "INSERT INTO temp_test(group_id,indications,indications_id,test,test_id) VALUES ('".$group_id."','".$indications_value_cal."','".$comindications_id."','".$test_value."','".$test_value_id."')";
+					$db->exec($sql);
+
+			}
+
 		}
 
 	}
+
 
 };
 
