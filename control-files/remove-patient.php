@@ -1,6 +1,6 @@
 <?php
 	include'../config/config.php';
-	$patients_id=$_GET['id'];
+	$patients_id=$_POST['id'];
 	$result = $db->prepare("DELETE FROM patients_details WHERE patients_id= $patients_id");
 	$result->execute();
 
@@ -34,5 +34,4 @@
 	$result4 = $db->prepare("DELETE FROM today_patients WHERE patients_id= $patients_id");
 	$result4->execute();
 
-header('Location:../views/all-patients.php');
 ?>

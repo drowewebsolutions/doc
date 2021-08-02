@@ -21,6 +21,8 @@
 
   include'../inc/header.php'; 
 ?>
+
+
   <?php if($pat_chck_result['id'] == null){ ?>
     <script>
       location.reload();
@@ -56,21 +58,22 @@
                 </tr>
                 <tr>
                   <td>Name</td>
-                  <td><input type="text" class="form-control" value="<?php echo $pat_array['name']; ?>" name="name" ></td>
+                  <td><input type="text" class="form-control impdis" value="<?php echo $pat_array['name']; ?>" name="name" ></td>
                 </tr>
                 <tr>
                   <td>Gender</td>
                   <td class="malgrd">
-                    <select name="gender" class="form-control">
-                      <?php if($pat_array['name']){ echo '<option>'.$pat_array['gender'].'</option>';} ?>
+                    <?php if($pat_array['name']){ echo '<select name="gender" class="form-control">'.'<option>'.$pat_array['gender'].'</option>'.'</select>';}else{ ?>
+                    <select name="gender" class="form-control impdis">
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
                     </select>
+                  <?php } ?>
                   </td>
                 </tr>
                 <tr>
                   <td>Date of Birth</td>
-                  <td> <input type="text" class="datevalidate form-control" placeholder="YYYY-MM-DD" autocomplete="off" value="<?php echo $pat_array['birthday']; ?>" class="form-control datepicker" name="birthday" id="birthday" ></td>
+                  <td> <input type="text" class="datevalidate form-control impdis" placeholder="YYYY-MM-DD" autocomplete="off" value="<?php echo $pat_array['birthday']; ?>" class="form-control datepicker" name="birthday" id="birthday" ></td>
                 </tr>
                 <tr>
                   <td>Age</td>
@@ -331,7 +334,13 @@
 <?php include'../inc/footer.php'; 
 
 ?>
-
+<?php if($pat_chck_result['import'] == '1'){ ?>
+<script type="text/javascript">
+  (function($) {
+    $('.impdis').prop('readonly', true);
+  })(jQuery);
+</script>
+<?php  }; ?>
 <script>
 
 (function($) {

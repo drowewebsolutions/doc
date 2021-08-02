@@ -49,7 +49,7 @@ $all_data_array = array("id" => $arid,
 
 $serialize_array = base64_encode(serialize($all_data_array));
 
-$sql = "INSERT INTO `temp_center_patients_details`(`patients_id`, `order`, `center`, `nd`, `active`, `data_arrey`) VALUES ("."'".$user_id."'".","."'".$arid."'".","."'".$Center."'".","."'".$nd."'".",'1',"."'".$serialize_array."'".")";
+$sql = "INSERT INTO `temp_center_patients_details`(`patients_id`, `order`, `center`, `nd`, `active`, `data_arrey`,`import`) VALUES ("."'".$user_id."'".","."'".$arid."'".","."'".$Center."'".","."'".$nd."'".",'1',"."'".$serialize_array."'".",'1')";
 $db->exec($sql);
 
 if($nd == 'n'){

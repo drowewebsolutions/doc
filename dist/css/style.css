@@ -157,6 +157,12 @@ font-size: 15px;
             pointer-events: unset;
     cursor: unset;
 }
+.pp-dis{
+      pointer-events: none;
+    cursor: default;
+    background-color: #a7a7a7 !important;
+    border: 1px solid #8f8e8e !important;
+}
 .actdeis.curnt{
     background-color: #13af00 !important;
     border: 1px solid #139803 !important;

@@ -36,7 +36,7 @@
             <?php }; ?>
               <a style="display: inline-block;" href="<?php echo $url; ?>views/history-view.php?id=<?php echo $row['patients_id']; ?>" class="badge btn-primary">Visit History</a>
               <a style="display: inline-block;" href="<?php echo $url; ?>views/update_biodata.php?id=<?php echo $row['patients_id']; ?>" class="badge btn-primary">Update Biodata</a>
-              <a style="display: inline-block;" href="<?php echo $url; ?>control-files/remove-patient.php?id=<?php echo $row['patients_id']; ?>" class="badge bg-danger svg-btn"><svg enable-background="new 0 0 384 384" version="1.1" viewBox="0 0 384 384" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><path d="m64 341.33c0 23.574 19.093 42.667 42.667 42.667h170.67c23.573 0 42.666-19.093 42.666-42.667v-256h-256v256z"/><polygon points="266.67 21.333 245.33 0 138.67 0 117.33 21.333 42.667 21.333 42.667 64 341.33 64 341.33 21.333"/></svg></a>
+              <span style="display: inline-block;" date-id="<?php echo $row['patients_id']; ?>" class="badge bg-danger svg-btn ps-delet"><svg enable-background="new 0 0 384 384" version="1.1" viewBox="0 0 384 384" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><path d="m64 341.33c0 23.574 19.093 42.667 42.667 42.667h170.67c23.573 0 42.666-19.093 42.666-42.667v-256h-256v256z"/><polygon points="266.67 21.333 245.33 0 138.67 0 117.33 21.333 42.667 21.333 42.667 64 341.33 64 341.33 21.333"/></svg></span>
             </td>
           </tr>
           <?php
@@ -50,6 +50,21 @@
 
 <script>
 (function($) {
-$('#myTable').DataTable();
+  $('#myTable').DataTable();
+  $(".ps-delet").click(function () {
+        if(confirm('Are you sure you want to delete this item?')) {
+            var id = $(this).attr('date-id');
+            var centerrow = $(this).parent().parent();
+
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo $url; ?>control-files/remove-patient.php',
+                data: "id=" + id,
+                success: function (data) {
+                    centerrow.fadeOut().remove();
+                }
+            });
+        };
+    });
 })(jQuery);
 </script>

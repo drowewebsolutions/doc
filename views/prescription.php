@@ -22,11 +22,15 @@
                 <?php if($e == 0){ ?>
                 <h5>Past Prescriptions</h5>
                 <div class="patients-row">
-                <?php }; ?>
+                <?php }; 
+                $prid = $row['id'];
+                $pp_slq = "SELECT * FROM pp_import WHERE pr_id=$prid";
+                $pp_result = $db->query($pp_slq)->fetch();
+                ?>
                     <div class="imprrow">
                         <span><?php echo $row['date']; ?></span>
                         <a class="btn btn-block btn-warning btn-xs li-modal" data-toggle="modal" href="<?php echo $url; ?>views/prescription-view.php?id=<?php echo $row['id']; ?>&userid=<?php echo $user_id; ?>" data-target="#pastmodal">View</a>
-                        <a class="btn btn-block btn-success btn-xs" href="<?php echo $url; ?>control-files/import-prescription.php?id=<?php echo $row['id']; ?>&userid=<?php echo $user_id; ?>">Import</a>
+                        <a class="btn btn-block btn-success btn-xs <?php if($pp_result["status"]=='1'){ echo 'pp-dis'; }?>" href="<?php echo $url; ?>control-files/import-prescription.php?id=<?php echo $prid; ?>&userid=<?php echo $user_id; ?>">Import</a>
                     </div>
                 <?php if($e == count($row)){ ?>
                  </div>

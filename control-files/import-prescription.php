@@ -3,6 +3,9 @@ include'../config/config.php';
 $userid = $_GET['userid'];
 $id = $_GET['id'];
 
+$sql_ppimport = "INSERT INTO pp_import( pr_id, status, user_id ) VALUES ('".$id."','1','".$userid."')";
+$db->exec($sql_ppimport);
+
 $temp_diagnoses = $db->prepare("SELECT * FROM save_diagnoses WHERE prescription_number=$id");
 $temp_diagnoses->execute();
 for($i=0; $row = $temp_diagnoses->fetch(); $i++){

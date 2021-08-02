@@ -17,7 +17,10 @@
                   <th>Parameters</th>
                   <th>Result</th>
                 </tr>
-               
+               <tr>
+                 <td>ID</td>
+                 <td> &nbsp;<?php echo $id; ?></td>
+               </tr>
                 <tr>
                   <td>Name</td>
                   <td><input type="hidden" class="form-control" value="<?php echo $id; ?>" name="id" >
@@ -38,46 +41,7 @@
                   <td>Date of Birth</td>
                   <td> <input type="text" class="datevalidate form-control" placeholder="YYYY-MM-DD" autocomplete="off" value="<?php echo $id_si["birthday"]; ?>" class="form-control datepicker" name="birthday" ></td>
                 </tr>
-                <tr>
-                  <td>Residence</td>
-                  <td>
-                    <select class="form-control select2" style="width: 100%;" name="residence">
-                      <?php if($id_si["residence"]){ echo '<option>'.$id_si["residence"].'</option>';} ?>
-                      <option value="---">---</option>
-                      <?php
-                        $others_units = $db->prepare("SELECT * FROM variables_residence");
-                        $others_units->execute();
-                        for($i=0; $row_resal = $others_units->fetch(); $i++){
-                      ?>
-                      <option value="<?php echo $row_resal['name']; ?>,<?php echo $row_resal['id']; ?>"><?php echo $row_resal['name']; ?></option>
-                      <?php
-                        }
-                      ?>
-                    </select>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Phone</td>
-                  <td><input type="text" class="form-control" value="<?php echo $id_si["phone"];; ?>" name="phone" ></td>
-                </tr>
-                <tr>
-                  <td>Occupation</td>
-                  <td>
-                    <select class="form-control select2" style="width: 100%;" name="occupation">
-                      <?php if($id_si["occupation"]){ echo '<option>'.$id_si["occupation"].'</option>';} ?>
-                      <option value="---">---</option>
-                      <?php
-                        $others_units = $db->prepare("SELECT * FROM variables_occupation ");
-                        $others_units->execute();
-                        for($i=0; $row_resal = $others_units->fetch(); $i++){
-                      ?>
-                            <option value="<?php echo $row_resal['name']; ?>,<?php echo $row_resal['id']; ?>"><?php echo $row_resal['name']; ?></option>
-                      <?php
-                        }
-                      ?>
-                    </select>
-                  </td>
-                </tr>
+                
               </table>
             </div>
           </div>
