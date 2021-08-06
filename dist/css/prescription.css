@@ -150,6 +150,7 @@ sup {
     border: 1px solid #ced4da;
     padding: 2px 6px;
     height: auto;
+    min-height: 34px;
 }
 
 .hed-bot {

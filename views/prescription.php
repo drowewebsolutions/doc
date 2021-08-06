@@ -692,7 +692,25 @@ include '../inc/footer.php';
     $('.select2').select2({
         tags: true,
     });
-    
+
+
+        var test = $('#ilness option:first-child').val();
+   
+        var trainindIdArray = test.split(',');
+
+        $.ajax({
+            type: 'POST',
+            url: '<?php echo $url; ?>control-files/inst-data-view.php',
+            data: "id=" + trainindIdArray[1],
+            success: function (data) {
+                $('#hastm').html(data);
+                initSelect2();
+            }
+        });
+
+        //alert(trainindIdArray[1]);
+  
+
     $(document.body).on("change","#ilness",function(){
 
         var test = this.value;

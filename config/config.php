@@ -62,7 +62,7 @@ function chckdb($db,$name,$tabel){
     $a_slq = "SELECT * FROM $tabel WHERE name='$value'";
     $id_result = $db->query($a_slq)->fetch();
 
-    if(!$id_result["name"]){
+    if(!$id_result["name"] && !$value==''){
         $sql = "INSERT INTO $tabel(name) VALUES ('".$value."')";
         $db->exec($sql); 
     };
