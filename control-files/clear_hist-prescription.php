@@ -1,6 +1,10 @@
 <?php
 include'../config/config.php';
 $patients_id=$_GET['id'];
+
+$result = $db->prepare("DELETE FROM histy_drug_allergies");
+$result->execute();
+
 $result = $db->prepare("DELETE FROM histy_assign_a_doctor");
 $result->execute();
 

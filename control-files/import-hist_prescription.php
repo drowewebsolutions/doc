@@ -3,6 +3,17 @@ include'../config/config.php';
 $userid = $_GET['userid'];
 $id = $_GET['id'];
 
+
+$temp_prescription_other_details = $db->prepare("SELECT * FROM save_patients_other_details WHERE prescription_number=$id");
+$temp_prescription_other_details->execute();
+for($q=0; $row = $temp_prescription_other_details->fetch(); $q++){
+
+    $allergies = $row['allergies'];
+    $sql_pressname = "INSERT INTO histy_patients_other_details( patients_id, allergies ) VALUES ('".$userid."','".$allergies."')";
+    $db->exec($sql_pressname);
+
+}
+
 $temp_diagnoses = $db->prepare("SELECT * FROM save_diagnoses WHERE prescription_number=$id");
 $temp_diagnoses->execute();
 for($i=0; $row = $temp_diagnoses->fetch(); $i++){

@@ -1,7 +1,9 @@
 <?php
 include'../config/config.php';
-$id=$_GET['id'];
-$userid=$_GET['userid'];
+
+$id = $_POST['id'];
+$userid=$_POST['userid'];
+
 $resulte = $db->prepare("DELETE FROM save_assign_a_doctor WHERE prescription_number= $id");
 $resulte->execute();
 
@@ -59,5 +61,5 @@ for ($m = 0; $rownv = $result_next_visits->fetch(); $m++) {
 $resulta = $db->prepare("DELETE FROM patients_prescription_number WHERE id= $id");
 $resulta->execute();
 
-header('Location:../views/history-view.php?id='.$userid);
+
 ?>

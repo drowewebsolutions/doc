@@ -29,9 +29,14 @@
               </div>
               <div class="row">
                 <div class="col-12 table-responsive">
-                  <select class="form-control select2" style="width: 100%;" name="ilness">
+                  <select class="form-control select2" style="width: 100%;" name="ilness" id="ilness">
                   <?php option_dropdown($db,'bulk_medicen'); ?>
                   </select>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-12 table-responsive" id="hastm">
                 </div>
               </div>
           </div>

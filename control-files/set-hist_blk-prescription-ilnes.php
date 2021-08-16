@@ -28,7 +28,7 @@ for($i=0; $row = $result->fetch(); $i++){
 	$variables_instructions = $row['instructions'];
 
 	$sql_pressname = "INSERT INTO histy_prescription_drugs ( user_id, form, generic_name, trade_name, strength, unit, route, frequency, duration, indication, instructions, category ) VALUES (
-	'".$user_id."', '".$variables_form."','".$generic_name."','".$trade_name."', '".$variables_strength."', '".$variables_unit."', '".$variables_route."', '".$variables_frequency."', '".$variables_duration."', '".$ilness."', '".$variables_instructions."', '".$category."')";
+	'".$user_id."', '".$variables_form."','".$generic_name."','".$trade_name."', '".$variables_strength."', '".$variables_unit."', '".$variables_route."', '".$variables_frequency."', '".$variables_duration."', '".$variables_indication."', '".$variables_instructions."', '".$category."')";
 		$db->exec($sql_pressname);
 
 	$lastid = $db->lastInsertId();

@@ -27,7 +27,7 @@
                         <span><?php echo $row['date']; ?></span>
                         <a class="btn btn-block btn-warning btn-xs li-modal" data-toggle="modal" href="<?php echo $url; ?>views/prescription-view.php?id=<?php echo $row['id']; ?>&userid=<?php echo $user_id; ?>" data-target="#pastmodal">View</a>
                         <a class="btn btn-block btn-success btn-xs" href="<?php echo $url; ?>control-files/import-hist_prescription.php?id=<?php echo $row['id']; ?>&userid=<?php echo $user_id; ?>">Alter</a> 
-                        <a class="badge bg-danger svg-btn" href="<?php echo $url; ?>control-files/delete_hist-prescription.php?id=<?php echo $row['id']; ?>&userid=<?php echo $user_id; ?>"><svg enable-background="new 0 0 384 384" version="1.1" viewBox="0 0 384 384" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><path d="m64 341.33c0 23.574 19.093 42.667 42.667 42.667h170.67c23.573 0 42.666-19.093 42.666-42.667v-256h-256v256z"/><polygon points="266.67 21.333 245.33 0 138.67 0 117.33 21.333 42.667 21.333 42.667 64 341.33 64 341.33 21.333"/></svg></a>
+                        <span class="badge bg-danger svg-btn sd-dlet" data-id="<?php echo $row['id']; ?>" data-userid="<?php echo $user_id; ?>" ><svg enable-background="new 0 0 384 384" version="1.1" viewBox="0 0 384 384" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><path d="m64 341.33c0 23.574 19.093 42.667 42.667 42.667h170.67c23.573 0 42.666-19.093 42.666-42.667v-256h-256v256z"/><polygon points="266.67 21.333 245.33 0 138.67 0 117.33 21.333 42.667 21.333 42.667 64 341.33 64 341.33 21.333"/></svg></span>
                     </div>
                 <?php if($e == count($row)){ ?>
                  </div>
@@ -495,6 +495,54 @@ include '../inc/footer.php';
 
 <script type="text/javascript">
 (function ($) {
+            
+    var test = $('#ilness option:first-child').val();
+
+    var trainindIdArray = test.split(',');
+
+    $.ajax({
+        type: 'POST',
+        url: '<?php echo $url; ?>control-files/inst-data-view.php',
+        data: "id=" + trainindIdArray[1],
+        success: function (data) {
+            $('#hastm').html(data);
+            initSelect2();
+        }
+    });
+
+    $(document.body).on("change","#ilness",function(){
+
+        var test = this.value;
+        var trainindIdArray = test.split(',');
+
+        $.ajax({
+            type: 'POST',
+            url: '<?php echo $url; ?>control-files/inst-data-view.php',
+            data: "id=" + trainindIdArray[1],
+            success: function (data) {
+                $('#hastm').html(data);
+                initSelect2();
+            }
+        });
+
+        //alert(trainindIdArray[1]);
+    });
+
+    $(".sd-dlet").click(function () {
+        if(confirm('Are you sure you want to delete this item?')) {
+            var id = $(this).attr('data-id');
+            var userid = $(this).attr('data-userid');
+            var centerrow = $(this).parent();
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo $url; ?>control-files/delete_hist-prescription.php',
+                data: "id=" + id + "&userid=" + userid,
+                success: function (data) {
+                    centerrow.fadeOut().remove();
+                }
+            });
+        };
+    });
     $("#printbtn").click(function () {
         //Hide all other elements other than printarea.
         $("#printarea").show();

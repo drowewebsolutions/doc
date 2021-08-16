@@ -568,6 +568,7 @@ include '../inc/footer.php';
 <script type="text/javascript">
 (function ($) {
     
+    
     $(".adbtn").click(function () {
         var tab = $(this).attr('data-id');
         $('.'+tab).css('display','flex');

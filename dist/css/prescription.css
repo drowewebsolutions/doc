@@ -293,3 +293,8 @@ display: table-cell;
 .drg-heding h4:first-child{
     display: block;
 }
+.sd-dlet{
+        width: 22px;
+    display: inline-block !important;
+    cursor: pointer;
+    }
